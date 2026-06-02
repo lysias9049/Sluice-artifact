@@ -1,0 +1,2 @@
+variant,log_n,n,prove_ms,verify_ms,peak_rss_mb,rss_delta_mb,proof_bytes,valid,read_bytes,write_bytes,pass_count,pk_path,qap_path,witness_path,git_commit,machine_id,timestamp
+std_prove_only,23,8388608,618456.4,1.942,13635.4,129.3,128,true,0,0,0,Experiments/std_prove_only_23_data/small.bin,Experiments/std_prove_only_23_data/qap_u.bin,Experiments/std_prove_only_23_data/witness.bin,unknown,artifact-host,1780290578

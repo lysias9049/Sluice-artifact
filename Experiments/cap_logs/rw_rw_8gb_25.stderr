@@ -1,0 +1,23 @@
+	Command being timed: "target-linux/release/rw_prove_only --prove 25 Experiments/rw_prove_only_25_data 0"
+	User time (seconds): 10280.59
+	System time (seconds): 304.72
+	Percent of CPU this job got: 97%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 3:01:36
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 30080
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 30
+	Minor (reclaiming a frame) page faults: 3077745
+	Voluntary context switches: 241788
+	Involuntary context switches: 121158
+	Swaps: 0
+	File system inputs: 11307864
+	File system outputs: 1903689728
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

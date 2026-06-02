@@ -1,0 +1,3 @@
+baseline,workload,log_n,n,constraints,paths,depth,rounds,rep,setup_ms,prove_ms,verify_ms,setup_peak_rss_mb,prove_start_peak_rss_mb,prove_end_peak_rss_mb,rss_delta_mb,peak_rss_mb,proof_bytes,valid,git_commit,machine_id,timestamp
+arkworks_groth16,mimc_merkle,21,2097152,2097152,16384,8,8,0,18204.7,17821.0,0.934,6517.5,6517.5,7039.7,522.2,7039.7,128,true,5d571cf,artifact-host,1780300935
+arkworks_groth16,mimc_merkle,22,4194304,4194304,32768,8,8,0,35151.7,36584.2,1.041,13601.0,13601.0,13879.1,278.2,13879.1,128,true,5d571cf,artifact-host,1780301007

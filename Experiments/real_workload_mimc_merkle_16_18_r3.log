@@ -1,0 +1,22 @@
+real workload benchmark: workload=mimc_merkle log_n=16..18 repeats=3
+built mimc_merkle: log_n=16 constraints=65536 vars=70145 paths=512 depth=8 rounds=8
+std log_n=16 rep=0 prove=4.3s valid=true
+std log_n=16 rep=1 prove=4.3s valid=true
+std log_n=16 rep=2 prove=4.3s valid=true
+rw_rw log_n=16 rep=0 prove=8.9s valid=true
+rw_rw log_n=16 rep=1 prove=8.9s valid=true
+rw_rw log_n=16 rep=2 prove=8.9s valid=true
+built mimc_merkle: log_n=17 constraints=131072 vars=140289 paths=1024 depth=8 rounds=8
+std log_n=17 rep=0 prove=6.3s valid=true
+std log_n=17 rep=1 prove=6.3s valid=true
+std log_n=17 rep=2 prove=6.3s valid=true
+rw_rw log_n=17 rep=0 prove=15.7s valid=true
+rw_rw log_n=17 rep=1 prove=15.8s valid=true
+rw_rw log_n=17 rep=2 prove=15.8s valid=true
+built mimc_merkle: log_n=18 constraints=262144 vars=280577 paths=2048 depth=8 rounds=8
+std log_n=18 rep=0 prove=10.3s valid=true
+std log_n=18 rep=1 prove=10.1s valid=true
+std log_n=18 rep=2 prove=10.1s valid=true
+rw_rw log_n=18 rep=0 prove=29.8s valid=true
+rw_rw log_n=18 rep=1 prove=29.8s valid=true
+rw_rw log_n=18 rep=2 prove=29.8s valid=true

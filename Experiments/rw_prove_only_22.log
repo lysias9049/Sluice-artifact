@@ -1,0 +1,7 @@
+materialize: setup/QAP/witness for N=2^22 (4194304)
+materialize: streaming_setup 3878.4s
+materialize: make_streaming_qap 0.3s
+materialize: assignment FileVec 0.7s
+materialize: wrote Experiments/rw_prove_only_22_data
+prove-only: spawning clean worker
+prove-only: wrote Experiments/rw_prove_only_22.csv

@@ -1,0 +1,2 @@
+variant,log_n,n,prove_ms,verify_ms,peak_rss_mb,rss_delta_mb,proof_bytes,valid,read_bytes,write_bytes,pass_count,crs_path,qap_path,witness_path,git_commit,machine_id,timestamp
+rw_rw_prove_only,25,33554432,6343475.1,1.377,37.3,35.6,128,true,1035623989504,974689140704,3107,Experiments/rw_prove_only_25_data/crs,Experiments/rw_prove_only_25_data/qap,Experiments/rw_prove_only_25_data/assignment.bin,5d571cf,artifact-host,1780097147

@@ -1,0 +1,10 @@
+baseline,workload,log_n,n,constraints,paths,depth,rounds,rep,setup_ms,prove_ms,verify_ms,setup_peak_rss_mb,prove_start_peak_rss_mb,prove_end_peak_rss_mb,rss_delta_mb,peak_rss_mb,proof_bytes,valid,git_commit,machine_id,timestamp
+arkworks_groth16,mimc_merkle,16,65536,65536,512,8,8,0,713.7,626.1,1.091,233.5,233.5,270.7,37.1,270.7,128,true,2199b96,artifact-host,1780038041
+arkworks_groth16,mimc_merkle,16,65536,65536,512,8,8,1,713.7,620.6,0.961,233.5,270.8,272.6,1.8,272.6,128,true,2199b96,artifact-host,1780038042
+arkworks_groth16,mimc_merkle,16,65536,65536,512,8,8,2,713.7,594.4,0.959,233.5,272.6,274.3,1.6,274.3,128,true,2199b96,artifact-host,1780038042
+arkworks_groth16,mimc_merkle,17,131072,131072,1024,8,8,0,1319.8,1133.3,0.963,459.1,459.1,528.9,69.8,528.9,128,true,2199b96,artifact-host,1780038045
+arkworks_groth16,mimc_merkle,17,131072,131072,1024,8,8,1,1319.8,1141.5,0.913,459.1,528.9,529.5,0.6,529.5,128,true,2199b96,artifact-host,1780038046
+arkworks_groth16,mimc_merkle,17,131072,131072,1024,8,8,2,1319.8,1165.2,0.914,459.1,529.5,533.2,3.7,533.2,128,true,2199b96,artifact-host,1780038047
+arkworks_groth16,mimc_merkle,18,262144,262144,2048,8,8,0,2533.4,2275.2,0.946,890.9,890.9,1073.1,182.2,1073.1,128,true,2199b96,artifact-host,1780038052
+arkworks_groth16,mimc_merkle,18,262144,262144,2048,8,8,1,2533.4,2209.6,1.054,890.9,1073.2,1088.7,15.5,1088.7,128,true,2199b96,artifact-host,1780038054
+arkworks_groth16,mimc_merkle,18,262144,262144,2048,8,8,2,2533.4,2287.4,0.920,890.9,1088.7,1091.5,2.8,1091.5,128,true,2199b96,artifact-host,1780038056

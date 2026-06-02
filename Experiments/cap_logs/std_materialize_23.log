@@ -1,0 +1,6 @@
+materialize standard: QAP/PK/witness for N=2^23 (8388608)
+materialize standard: setup 7638.6s
+materialize standard: witness 5.9s
+materialize standard: wrote Experiments/std_prove_only_23_data
+standard prove-only: spawning clean worker
+standard prove-only: wrote Experiments/std_prove_only_23.csv

@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="640" viewBox="0 0 1200 640" role="img" aria-labelledby="title desc">
+  <title id="title">RW-RW Low-Memory Cgroup Sweep at N=2^20</title>
+  <desc id="desc">Outcome of RW-RW prove-only runs under cgroup memory caps from 10MB to 128MB on an Apple M1 Pro Docker Linux backend.</desc>
+  <style>
+    text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif; fill: #17212b; }
+    .title { font-size: 28px; font-weight: 700; }
+    .subtitle { font-size: 15px; fill: #52616f; }
+    .axis { stroke: #2d3742; stroke-width: 1.4; }
+    .grid { stroke: #d8dee6; stroke-width: 1; }
+    .tick { font-size: 13px; fill: #4f5f6f; }
+    .ylabel { font-size: 15px; font-weight: 650; }
+    .note { font-size: 14px; fill: #3b4754; }
+    .small { font-size: 12px; fill: #566575; }
+    .panel-title { font-size: 16px; font-weight: 700; }
+    .panel-text { font-size: 14px; fill: #26313c; }
+    .fail { stroke: #c53b3b; stroke-width: 3; stroke-linecap: round; }
+    .worker { fill: #e99b28; stroke: #9b620d; stroke-width: 1.2; }
+    .success { fill: #229954; stroke: #0f5f32; stroke-width: 1.2; }
+  </style>
+
+  <rect x="0" y="0" width="1200" height="640" fill="#ffffff"/>
+  <text x="80" y="54" class="title">RW-RW prove-only low-memory sweep</text>
+  <text x="80" y="80" class="subtitle">N = 2^20, materialized CRS/QAP/witness already on disk, Docker cgroup v2 on Apple M1 Pro</text>
+
+  <defs>
+    <g id="cross">
+      <line x1="-7" y1="-7" x2="7" y2="7" class="fail"/>
+      <line x1="-7" y1="7" x2="7" y2="-7" class="fail"/>
+    </g>
+    <g id="diamond">
+      <path d="M 0 -8 L 8 0 L 0 8 L -8 0 Z" class="worker"/>
+    </g>
+  </defs>
+
+  <rect x="95" y="105" width="735" height="325" fill="#fbfcfe" stroke="#e1e7ef"/>
+  <rect x="599" y="105" width="84" height="325" fill="#dbeafe" opacity="0.55"/>
+  <text x="604" y="124" class="small">observed boundary</text>
+  <text x="610" y="140" class="small">96-112 MB</text>
+
+  <line x1="95" y1="365" x2="830" y2="365" class="grid"/>
+  <line x1="95" y1="260" x2="830" y2="260" class="grid"/>
+  <line x1="95" y1="155" x2="830" y2="155" class="grid"/>
+  <line x1="95" y1="430" x2="830" y2="430" class="axis"/>
+  <line x1="95" y1="105" x2="95" y2="430" class="axis"/>
+
+  <text x="23" y="370" class="ylabel">Container</text>
+  <text x="46" y="387" class="small">killed</text>
+  <text x="38" y="265" class="ylabel">Worker</text>
+  <text x="48" y="282" class="small">killed</text>
+  <text x="40" y="160" class="ylabel">Success</text>
+  <text x="41" y="177" class="small">valid proof</text>
+
+  <g class="ticks">
+    <line x1="95" y1="430" x2="95" y2="436" class="axis"/><text x="91" y="456" class="tick">0</text>
+    <line x1="200" y1="430" x2="200" y2="436" class="axis"/><text x="192" y="456" class="tick">20</text>
+    <line x1="305" y1="430" x2="305" y2="436" class="axis"/><text x="297" y="456" class="tick">40</text>
+    <line x1="410" y1="430" x2="410" y2="436" class="axis"/><text x="402" y="456" class="tick">60</text>
+    <line x1="515" y1="430" x2="515" y2="436" class="axis"/><text x="507" y="456" class="tick">80</text>
+    <line x1="599" y1="430" x2="599" y2="436" class="axis"/><text x="591" y="456" class="tick">96</text>
+    <line x1="683" y1="430" x2="683" y2="436" class="axis"/><text x="671" y="456" class="tick">112</text>
+    <line x1="767" y1="430" x2="767" y2="436" class="axis"/><text x="755" y="456" class="tick">128</text>
+    <line x1="830" y1="430" x2="830" y2="436" class="axis"/><text x="818" y="456" class="tick">140</text>
+  </g>
+  <text x="400" y="492" class="ylabel">Cgroup memory cap (MB)</text>
+
+  <use href="#cross" transform="translate(148 365)"/>
+  <use href="#cross" transform="translate(158 365)"/>
+  <use href="#cross" transform="translate(179 365)"/>
+  <use href="#cross" transform="translate(200 365)"/>
+  <use href="#cross" transform="translate(221 365)"/>
+  <use href="#cross" transform="translate(242 365)"/>
+  <use href="#cross" transform="translate(253 365)"/>
+  <use href="#cross" transform="translate(263 365)"/>
+  <use href="#cross" transform="translate(305 365)"/>
+  <use href="#cross" transform="translate(431 365)"/>
+  <use href="#cross" transform="translate(515 365)"/>
+  <use href="#diamond" transform="translate(599 260)"/>
+  <circle cx="683" cy="155" r="8" class="success"/>
+  <circle cx="767" cy="155" r="8" class="success"/>
+
+  <text x="125" y="392" class="small">10-80 MB: container exit 137</text>
+  <text x="610" y="286" class="small">96 MB: worker exit 137 after 30s</text>
+  <text x="690" y="181" class="small">112/128 MB: valid 128-byte proofs</text>
+
+  <line x1="683" y1="155" x2="706" y2="112" stroke="#0f5f32" stroke-width="1.2"/>
+  <text x="710" y="107" class="small">first successful cap observed</text>
+
+  <rect x="880" y="112" width="250" height="294" rx="6" fill="#f7f9fc" stroke="#dde5ef"/>
+  <text x="900" y="142" class="panel-title">Result summary</text>
+  <text x="900" y="176" class="panel-text">Lowest tested success: 112 MB</text>
+  <text x="900" y="201" class="panel-text">Highest tested failure: 96 MB</text>
+  <text x="900" y="226" class="panel-text">Successful MaxRSS: ~30.3 MB</text>
+  <text x="900" y="251" class="panel-text">Successful proof size: 128 B</text>
+  <text x="900" y="276" class="panel-text">Successful validity: true</text>
+  <text x="900" y="315" class="panel-title">Interpretation</text>
+  <text x="900" y="344" class="panel-text">The prove worker uses about</text>
+  <text x="900" y="366" class="panel-text">30 MB RSS, but the practical</text>
+  <text x="900" y="388" class="panel-text">Docker cgroup cap must also</text>
+  <text x="900" y="410" class="panel-text">cover runtime/container overhead.</text>
+
+  <g transform="translate(95 540)">
+    <use href="#cross" transform="translate(8 0)"/>
+    <text x="25" y="5" class="note">container killed before worker status</text>
+    <use href="#diamond" transform="translate(302 0)"/>
+    <text x="319" y="5" class="note">worker killed by cgroup</text>
+    <circle cx="520" cy="0" r="8" class="success"/>
+    <text x="537" y="5" class="note">success, verifier-accepted proof</text>
+  </g>
+
+  <text x="80" y="600" class="small">Source: Experiments/rw_rw_lowmem_sweep_20.csv and Experiments/cap_logs/rw_rw_*m_20.*</text>
+</svg>

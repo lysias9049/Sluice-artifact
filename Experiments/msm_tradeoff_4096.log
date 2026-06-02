@@ -1,0 +1,14 @@
+=== MSM Window Size Tradeoff ===
+N = 4096  (n_vars = 12289)
+
+window_w    prove(ms)   peak_RSS(MB)    valid
+──────────────────────────────────────────────
+1             1478.1           2.3     true
+2             1018.4           0.6     true
+4              625.4           0.0     true
+6              443.4           0.0     true
+8              358.6           0.0     true
+12             467.5           0.0     true
+16            2601.3          18.0     true
+
+CSV: cargo run --bin msm_tradeoff --release -- 4096 2> msm_tradeoff.csv

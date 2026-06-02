@@ -1,0 +1,5 @@
+arkworks production baseline: workload=mimc_merkle log_n=21..22 repeats=1
+built mimc_merkle: log_n=21 constraints=2097152 paths=16384 depth=8 rounds=8
+arkworks_groth16 log_n=21 rep=0 prove=17.8s valid=true
+built mimc_merkle: log_n=22 constraints=4194304 paths=32768 depth=8 rounds=8
+arkworks_groth16 log_n=22 rep=0 prove=36.6s valid=true

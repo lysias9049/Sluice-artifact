@@ -1,0 +1,15 @@
+host_label,variant,log_n,n,cap_mb,docker_exit,worker_exit,success,wall_s,prove_ms,verify_ms,time_v_max_rss_kb,peak_rss_mb,rss_delta_mb,proof_bytes,valid,read_bytes,write_bytes,pass_count,notes
+m1pro-32gb-20260529,rw_rw_prove_only,20,1048576,10,137,,false,,,,,,,,,,,,container killed before worker status
+m1pro-32gb-20260529,rw_rw_prove_only,20,1048576,12,137,,false,,,,,,,,,,,,container killed before worker status
+m1pro-32gb-20260529,rw_rw_prove_only,20,1048576,16,137,,false,,,,,,,,,,,,container killed before worker status
+m1pro-32gb-20260529,rw_rw_prove_only,20,1048576,20,137,,false,,,,,,,,,,,,container killed before worker status
+m1pro-32gb-20260529,rw_rw_prove_only,20,1048576,24,137,,false,,,,,,,,,,,,container killed before worker status
+m1pro-32gb-20260529,rw_rw_prove_only,20,1048576,28,137,,false,,,,,,,,,,,,container killed before worker status
+m1pro-32gb-20260529,rw_rw_prove_only,20,1048576,30,137,,false,,,,,,,,,,,,container killed before worker status
+m1pro-32gb-20260529,rw_rw_prove_only,20,1048576,32,137,,false,,,,,,,,,,,,container killed before worker status
+m1pro-32gb-20260529,rw_rw_prove_only,20,1048576,40,137,,false,,,,,,,,,,,,container killed before worker status
+m1pro-32gb-20260529,rw_rw_prove_only,20,1048576,64,137,,false,,,,,,,,,,,,container killed before worker status
+m1pro-32gb-20260529,rw_rw_prove_only,20,1048576,80,137,,false,,,,,,,,,,,,container killed before worker status
+m1pro-32gb-20260529,rw_rw_prove_only,20,1048576,96,0,137,false,30,,,3228,,,,,,,,worker killed by signal 9
+m1pro-32gb-20260529,rw_rw_prove_only,20,1048576,112,0,0,true,378,377704.3,2.260,30304,29.6,27.6,128,true,26642219264,24738004960,2527,valid proof
+m1pro-32gb-20260529,rw_rw_prove_only,20,1048576,128,0,0,true,376,375732.8,2.540,30296,29.6,27.7,128,true,26642219264,24738004960,2527,valid proof
