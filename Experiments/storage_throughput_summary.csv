@@ -1,0 +1,7 @@
+source,variant,log_n,n,prove_s,read_gib,write_gib,total_gib,effective_mib_s,pass_count
+rw_rw_direct_scaling.csv,rw_rw_prove_only,18,262144,47.0946,5.64844,5.20508,10.8535,235.993,2281
+rw_rw_direct_scaling.csv,rw_rw_prove_only,20,1048576,280.94,24.8125,23.0391,47.8516,174.415,2527
+rw_rw_direct_scaling.csv,rw_rw_prove_only,22,4194304,1145.43,108.125,101.031,209.156,186.983,2773
+rw_rw_direct_scaling.csv,rw_rw_prove_only,23,8388608,1550.87,223.375,209.187,432.563,285.611,2861
+rw_rw_direct_scaling.csv,rw_rw_prove_only,24,16777216,3139.79,468,439.625,907.625,296.01,3019
+rw_rw_direct_scaling.csv,rw_rw_prove_only,25,33554432,6343.48,964.5,907.75,1872.25,302.229,3107

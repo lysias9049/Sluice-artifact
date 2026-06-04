@@ -17,14 +17,21 @@
 
 use std::{
     fs::{self, File},
-    io::{self, BufReader, BufWriter, Read, Write},
+    io::{self, BufReader, BufWriter, Read, Seek, SeekFrom, Write},
     marker::PhantomData,
     path::{Path, PathBuf},
     sync::atomic::{AtomicU64, AtomicUsize, Ordering},
 };
 
+use chacha20poly1305::{
+    aead::{AeadInPlace, KeyInit},
+    ChaCha20Poly1305, Key, Nonce, Tag,
+};
+
 /// Internal I/O buffer size: 256 KB.
 const BUF_CAPACITY: usize = 1 << 18;
+const AEAD_MAGIC: &[u8; 8] = b"RWGAEAD1";
+const AEAD_TAG_BYTES: usize = 16;
 
 /// Application-level FileVec I/O counters for benchmark reporting.
 ///
@@ -74,6 +81,57 @@ fn next_temp_path() -> PathBuf {
     let id = FILE_ID.fetch_add(1, Ordering::Relaxed);
     let pid = std::process::id();
     std::env::temp_dir().join(format!("rwg_{pid}_{id}.tmp"))
+}
+
+fn aead_enabled() -> bool {
+    matches!(
+        std::env::var("RWG_FILEVEC_AEAD").ok().as_deref(),
+        Some("1") | Some("true") | Some("chacha20poly1305")
+    )
+}
+
+fn aead_cipher() -> ChaCha20Poly1305 {
+    // Benchmark key only. This proves compatibility of encrypted/authenticated
+    // sequential FileVec access, not production key management.
+    ChaCha20Poly1305::new(Key::from_slice(&[0x42u8; 32]))
+}
+
+fn aead_nonce(chunk_idx: u64) -> [u8; 12] {
+    let mut nonce = [0u8; 12];
+    nonce[0..4].copy_from_slice(b"RWG1");
+    nonce[4..12].copy_from_slice(&chunk_idx.to_le_bytes());
+    nonce
+}
+
+fn aead_ad(elem_len: usize, chunk_idx: u64, plain_len: usize) -> [u8; 24] {
+    let mut ad = [0u8; 24];
+    ad[0..8].copy_from_slice(&(elem_len as u64).to_le_bytes());
+    ad[8..16].copy_from_slice(&chunk_idx.to_le_bytes());
+    ad[16..24].copy_from_slice(&(plain_len as u64).to_le_bytes());
+    ad
+}
+
+fn auth_err() -> io::Error {
+    io::Error::new(io::ErrorKind::InvalidData, "FileVec AEAD authentication failed")
+}
+
+enum ReaderMode {
+    Plain,
+    Aead {
+        cipher: ChaCha20Poly1305,
+        chunk_idx: u64,
+        plain: Vec<u8>,
+        offset: usize,
+    },
+}
+
+enum WriterMode {
+    Plain,
+    Aead {
+        cipher: ChaCha20Poly1305,
+        chunk_idx: u64,
+        plain: Vec<u8>,
+    },
 }
 
 // ── StreamElem trait ──────────────────────────────────────────────────────────
@@ -171,35 +229,22 @@ impl<T: StreamElem> FileVec<T> {
 
     /// Serialize `data` to a new temp file and return the `FileVec`.
     pub fn from_vec(data: &[T]) -> io::Result<Self> {
-        let path = next_temp_path();
-        {
-            let mut w = BufWriter::with_capacity(BUF_CAPACITY, File::create(&path)?);
-            for elem in data {
-                elem.write_to(&mut w)?;
-                WRITE_BYTES.fetch_add(T::BYTE_LEN as u64, Ordering::Relaxed);
-            }
-            w.flush()?;
+        let mut w = FileVecWriter::<T>::new()?;
+        for elem in data {
+            w.write(elem)?;
         }
-        WRITE_STREAMS.fetch_add(1, Ordering::Relaxed);
-        Ok(Self {
-            path,
-            len: data.len(),
-            delete_on_drop: true,
-            _t: PhantomData,
-        })
+        w.finish()
     }
 
     /// Deserialize all elements back into a `Vec<T>`.
     ///
     /// Consumes `self` (and deletes the backing file).
     pub fn into_vec(self) -> io::Result<Vec<T>> {
-        let mut r = BufReader::with_capacity(BUF_CAPACITY, File::open(&self.path)?);
+        let mut r = FileVecReader::open(&self)?;
         let mut out = Vec::with_capacity(self.len);
-        for _ in 0..self.len {
-            out.push(T::read_from(&mut r)?);
-            READ_BYTES.fetch_add(T::BYTE_LEN as u64, Ordering::Relaxed);
+        while let Some(elem) = r.next()? {
+            out.push(elem);
         }
-        READ_STREAMS.fetch_add(1, Ordering::Relaxed);
         Ok(out)
     }
 }
@@ -213,17 +258,70 @@ impl<T: StreamElem> FileVec<T> {
 pub struct FileVecReader<T: StreamElem> {
     reader: BufReader<File>,
     remaining: usize,
+    mode: ReaderMode,
     _t: PhantomData<T>,
 }
 
 impl<T: StreamElem> FileVecReader<T> {
     pub fn open(fv: &FileVec<T>) -> io::Result<Self> {
+        let mut file = File::open(&fv.path)?;
+        let mut magic = [0u8; AEAD_MAGIC.len()];
+        let is_aead = file.read_exact(&mut magic).is_ok() && &magic == AEAD_MAGIC;
+        if !is_aead {
+            file.seek(SeekFrom::Start(0))?;
+        }
         READ_STREAMS.fetch_add(1, Ordering::Relaxed);
+        let mode = if is_aead {
+            ReaderMode::Aead {
+                cipher: aead_cipher(),
+                chunk_idx: 0,
+                plain: Vec::new(),
+                offset: 0,
+            }
+        } else {
+            ReaderMode::Plain
+        };
         Ok(Self {
-            reader: BufReader::with_capacity(BUF_CAPACITY, File::open(&fv.path)?),
+            reader: BufReader::with_capacity(BUF_CAPACITY, file),
             remaining: fv.len,
+            mode,
             _t: PhantomData,
         })
+    }
+
+    fn refill_aead_chunk(
+        reader: &mut BufReader<File>,
+        cipher: &ChaCha20Poly1305,
+        chunk_idx: &mut u64,
+        plain: &mut Vec<u8>,
+        offset: &mut usize,
+    ) -> io::Result<()> {
+        let mut len_buf = [0u8; 4];
+        reader.read_exact(&mut len_buf)?;
+        let plain_len = u32::from_le_bytes(len_buf) as usize;
+        if plain_len == 0 || plain_len > BUF_CAPACITY + T::BYTE_LEN {
+            return Err(io::Error::new(
+                io::ErrorKind::InvalidData,
+                "invalid FileVec AEAD chunk length",
+            ));
+        }
+        plain.resize(plain_len, 0);
+        reader.read_exact(plain)?;
+        let mut tag_buf = [0u8; AEAD_TAG_BYTES];
+        reader.read_exact(&mut tag_buf)?;
+        let nonce = aead_nonce(*chunk_idx);
+        let ad = aead_ad(T::BYTE_LEN, *chunk_idx, plain_len);
+        cipher
+            .decrypt_in_place_detached(
+                Nonce::from_slice(&nonce),
+                &ad,
+                plain,
+                Tag::from_slice(&tag_buf),
+            )
+            .map_err(|_| auth_err())?;
+        *chunk_idx += 1;
+        *offset = 0;
+        Ok(())
     }
 
     /// Return the next element, or `None` if all elements have been read.
@@ -232,7 +330,30 @@ impl<T: StreamElem> FileVecReader<T> {
         if self.remaining == 0 {
             return Ok(None);
         }
-        let elem = T::read_from(&mut self.reader)?;
+        let elem = match &mut self.mode {
+            ReaderMode::Plain => T::read_from(&mut self.reader)?,
+            ReaderMode::Aead {
+                cipher,
+                chunk_idx,
+                plain,
+                offset,
+            } => {
+                if plain.len().saturating_sub(*offset) < T::BYTE_LEN {
+                    Self::refill_aead_chunk(
+                        &mut self.reader,
+                        cipher,
+                        chunk_idx,
+                        plain,
+                        offset,
+                    )?;
+                }
+                let end = *offset + T::BYTE_LEN;
+                let mut elem_reader = &plain[*offset..end];
+                let elem = T::read_from(&mut elem_reader)?;
+                *offset = end;
+                elem
+            }
+        };
         READ_BYTES.fetch_add(T::BYTE_LEN as u64, Ordering::Relaxed);
         self.remaining -= 1;
         Ok(Some(elem))
@@ -248,6 +369,7 @@ impl<T: StreamElem> FileVecReader<T> {
 pub struct FileVecWriter<T: StreamElem> {
     path: PathBuf,
     writer: BufWriter<File>,
+    mode: WriterMode,
     count: usize,
     finished: bool,
     _t: PhantomData<T>,
@@ -257,20 +379,68 @@ impl<T: StreamElem> FileVecWriter<T> {
     /// Create a new writer backed by a fresh temp file.
     pub fn new() -> io::Result<Self> {
         let path = next_temp_path();
-        let writer = BufWriter::with_capacity(BUF_CAPACITY, File::create(&path)?);
+        let mut writer = BufWriter::with_capacity(BUF_CAPACITY, File::create(&path)?);
+        let mode = if aead_enabled() {
+            writer.write_all(AEAD_MAGIC)?;
+            WriterMode::Aead {
+                cipher: aead_cipher(),
+                chunk_idx: 0,
+                plain: Vec::with_capacity(BUF_CAPACITY),
+            }
+        } else {
+            WriterMode::Plain
+        };
         Ok(Self {
             path,
             writer,
+            mode,
             count: 0,
             finished: false,
             _t: PhantomData,
         })
     }
 
+    fn flush_aead_chunk(
+        writer: &mut BufWriter<File>,
+        cipher: &ChaCha20Poly1305,
+        chunk_idx: &mut u64,
+        plain: &mut Vec<u8>,
+    ) -> io::Result<()> {
+        if plain.is_empty() {
+            return Ok(());
+        }
+        let plain_len = plain.len();
+        let nonce = aead_nonce(*chunk_idx);
+        let ad = aead_ad(T::BYTE_LEN, *chunk_idx, plain_len);
+        let tag = cipher
+            .encrypt_in_place_detached(Nonce::from_slice(&nonce), &ad, plain)
+            .map_err(|_| io::Error::new(io::ErrorKind::InvalidData, "FileVec AEAD encrypt failed"))?;
+        writer.write_all(&(plain_len as u32).to_le_bytes())?;
+        writer.write_all(plain)?;
+        writer.write_all(&tag)?;
+        plain.clear();
+        *chunk_idx += 1;
+        Ok(())
+    }
+
     /// Append one element to the file.
     #[inline]
     pub fn write(&mut self, elem: &T) -> io::Result<()> {
-        elem.write_to(&mut self.writer)?;
+        match &mut self.mode {
+            WriterMode::Plain => elem.write_to(&mut self.writer)?,
+            WriterMode::Aead {
+                cipher,
+                chunk_idx,
+                plain,
+            } => {
+                let start = plain.len();
+                plain.resize(start + T::BYTE_LEN, 0);
+                elem.write_to(&mut &mut plain[start..start + T::BYTE_LEN])?;
+                if plain.len() >= BUF_CAPACITY {
+                    Self::flush_aead_chunk(&mut self.writer, cipher, chunk_idx, plain)?;
+                }
+            }
+        }
         WRITE_BYTES.fetch_add(T::BYTE_LEN as u64, Ordering::Relaxed);
         self.count += 1;
         Ok(())
@@ -278,6 +448,14 @@ impl<T: StreamElem> FileVecWriter<T> {
 
     /// Flush, close, and hand ownership to a `FileVec<T>`.
     pub fn finish(mut self) -> io::Result<FileVec<T>> {
+        if let WriterMode::Aead {
+            cipher,
+            chunk_idx,
+            plain,
+        } = &mut self.mode
+        {
+            Self::flush_aead_chunk(&mut self.writer, cipher, chunk_idx, plain)?;
+        }
         self.writer.flush()?;
         self.finished = true;
         WRITE_STREAMS.fetch_add(1, Ordering::Relaxed);

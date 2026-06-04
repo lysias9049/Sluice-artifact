@@ -1,0 +1,5 @@
+source,total_mib,chunk_kib,mode,runs,write_ms_mean,read_ms_mean,total_ms_mean,throughput_mib_s_mean,file_bytes_mean,tag_overhead_bytes_mean,valid_runs
+Experiments/filevec_crypto_microbench_1g_r5.csv,1024,256,chacha20poly1305,5,4738.108,4711.305,9449.413,216.733,1073807360,65536,5
+Experiments/filevec_crypto_microbench_1g_r5.csv,1024,256,plain,5,2184.614,2140.124,4324.737,473.562,1073741824,0,5
+Experiments/filevec_crypto_microbench_25g_r1.csv,25600,256,chacha20poly1305,1,118988.872,119864.167,238853.039,214.358,26845184000,1638400,1
+Experiments/filevec_crypto_microbench_25g_r1.csv,25600,256,plain,1,54894.245,55259.442,110153.687,464.805,26843545600,0,1

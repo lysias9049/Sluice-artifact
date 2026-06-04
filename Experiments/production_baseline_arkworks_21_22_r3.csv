@@ -1,0 +1,7 @@
+baseline,workload,log_n,n,constraints,paths,depth,rounds,rep,setup_ms,prove_ms,verify_ms,setup_peak_rss_mb,prove_start_peak_rss_mb,prove_end_peak_rss_mb,rss_delta_mb,peak_rss_mb,proof_bytes,valid,git_commit,machine_id,timestamp
+arkworks_groth16,mimc_merkle,21,2097152,2097152,16384,8,8,0,17202.7,16568.9,0.982,6517.0,6517.0,7014.2,497.2,7014.2,128,true,442004d,artifact-host,1780540911
+arkworks_groth16,mimc_merkle,21,2097152,2097152,16384,8,8,1,17202.7,16479.6,0.969,6517.0,7014.3,7503.2,488.8,7503.2,128,true,442004d,artifact-host,1780540927
+arkworks_groth16,mimc_merkle,21,2097152,2097152,16384,8,8,2,17202.7,16343.4,1.044,6517.0,7503.2,7503.2,0.0,7503.2,128,true,442004d,artifact-host,1780540944
+arkworks_groth16,mimc_merkle,22,4194304,4194304,32768,8,8,0,32059.5,34105.6,0.968,13659.8,13659.8,13892.2,232.4,13892.2,128,true,442004d,artifact-host,1780541010
+arkworks_groth16,mimc_merkle,22,4194304,4194304,32768,8,8,1,32059.5,32659.4,0.912,13659.8,13892.2,14073.6,181.4,14073.6,128,true,442004d,artifact-host,1780541043
+arkworks_groth16,mimc_merkle,22,4194304,4194304,32768,8,8,2,32059.5,32649.5,0.913,13659.8,14073.6,14073.6,0.0,14073.6,128,true,442004d,artifact-host,1780541075

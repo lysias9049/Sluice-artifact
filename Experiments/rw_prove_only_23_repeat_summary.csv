@@ -1,0 +1,4 @@
+kind,source,git_commit,log_n,n,prove_s,verify_ms,peak_rss_mb,rss_delta_mb,proof_bytes,valid,read_gib,write_gib,pass_count,note
+run,Experiments/rw_rw_direct_scaling.csv,5d571cf,23,8388608,1550.867,1.338,35.6,33.9,128,true,223.375,209.1875,2861,plain FileVec RW-RW prove-only scaling row
+run,Experiments/rw_prove_only_23_repeat2.csv,442004d,23,8388608,1644.258,2.550,38.9,37.2,128,true,223.375,209.1875,2861,additional repeat after AEAD code added but plaintext mode by default
+aggregate,2_runs_mixed_commits,,23,8388608,1597.563,,37.25,,128,true,223.375,209.1875,2861,mean over two valid runs; prove_s sample_sd=66.037 and peak_rss_mb sample_sd=2.333; use as auxiliary repeat evidence because commits differ

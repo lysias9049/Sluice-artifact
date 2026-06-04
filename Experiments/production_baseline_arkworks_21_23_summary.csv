@@ -1,0 +1,4 @@
+log_n,n,runs,setup_ms_mean,prove_ms_mean,prove_ms_sd,verify_ms_mean,peak_rss_mb_mean,peak_rss_mb_sd,proof_bytes,valid_runs,sources
+21,2097152,3,17202.7,16464.0,92.7,0.998,7340.2,230.5,128,3,Experiments/production_baseline_arkworks_21_22_r3.csv;Experiments/production_baseline_arkworks_21_22_r3.csv;Experiments/production_baseline_arkworks_21_22_r3.csv
+22,4194304,3,32059.5,33138.2,684.1,0.931,14013.1,85.5,128,3,Experiments/production_baseline_arkworks_21_22_r3.csv;Experiments/production_baseline_arkworks_21_22_r3.csv;Experiments/production_baseline_arkworks_21_22_r3.csv
+23,8388608,1,69990.7,78916.0,0.0,0.981,16263.6,0.0,128,1,Experiments/production_baseline_arkworks_23_r1.csv

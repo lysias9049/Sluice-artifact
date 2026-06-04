@@ -1,0 +1,3 @@
+mode,total_mib,total_bytes,chunk_kib,chunk_bytes,chunks,write_ms,read_ms,total_ms,throughput_mib_s,file_bytes,tag_overhead_bytes,valid,rep,git_commit,machine_id,timestamp
+plain,25600,26843545600,256,262144,102400,54894.245,55259.442,110153.687,464.805,26843545600,0,true,0,442004d,artifact-host,1780537896
+chacha20poly1305,25600,26843545600,256,262144,102400,118988.872,119864.167,238853.039,214.358,26845184000,1638400,true,0,442004d,artifact-host,1780538136

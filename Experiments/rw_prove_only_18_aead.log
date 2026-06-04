@@ -1,0 +1,11 @@
+materialize: setup/QAP/witness for N=2^18 (262144)
+materialize: streaming_setup 166.9s
+materialize: make_streaming_qap 0.1s
+materialize: assignment FileVec 0.1s
+materialize: wrote Experiments/rw_prove_only_18_aead_data
+prove-only: spawning clean worker
+
+thread 'main' (1088651) panicked at src/bin/rw_prove_only.rs:386:14:
+streaming_prove_rw failed: Custom { kind: InvalidData, error: "invalid FileVec AEAD chunk length" }
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+Error: Custom { kind: Other, error: "prove-only worker failed" }

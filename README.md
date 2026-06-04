@@ -13,6 +13,11 @@ the RW-Groth16 evaluation.
 - `Experiments/README_ARTIFACT.md`: paper-to-artifact mapping and expected
   bounded-memory outcomes.
 - `Experiments/environment_linux_cgroup.md`: Linux cgroup environment notes.
+- `Experiments/filevec_crypto_microbench_*.csv` and
+  `Experiments/rw_prove_only_aead_summary.csv`: optional AEAD FileVec
+  microbenchmark and small end-to-end proving sanity summaries.
+- `Experiments/production_baseline_arkworks_21_23_summary.csv`: native
+  arkworks structured-workload baseline summary through `N=2^23`.
 
 Large generated directories such as `target/`, `target-linux/`,
 `.cargo-linux/`, and `Experiments/*_data/` are intentionally excluded.
