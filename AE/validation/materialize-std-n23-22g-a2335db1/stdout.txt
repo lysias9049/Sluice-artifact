@@ -1,0 +1,4 @@
+materialize standard: QAP/PK/witness for N=2^23 (8388608)
+materialize standard: setup 7318.7s
+materialize standard: witness 4.9s
+materialize standard: wrote /workspace/data/std-23

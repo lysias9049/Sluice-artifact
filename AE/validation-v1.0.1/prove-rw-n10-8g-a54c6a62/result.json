@@ -1,0 +1,64 @@
+{
+  "name": "prove-rw-n10-8g-a54c6a62",
+  "mode": "prove",
+  "variant": "rw",
+  "log_n": 10,
+  "exit_code": -9,
+  "wall_seconds": 0.107,
+  "oom_kill_delta": 0,
+  "memory_max": "536870912",
+  "swap_max": "0",
+  "source_revision": "sha256:6bdabba06814c9b8a15527b5a383252c4f77e3488f2da7d3cc5e3ea4a289e977",
+  "command": [
+    "target/release/rw_prove_only",
+    "--prove",
+    "10",
+    "/workspace/data/rw-10",
+    "0"
+  ],
+  "cap_monitor": {
+    "expected_memory_bytes": 8589934592,
+    "expected_swap_max": "0",
+    "poll_interval_seconds": 0.1,
+    "max_allowed_gap_seconds": 1.0,
+    "samples": 3,
+    "max_sample_gap_seconds": 0.10132604099999298,
+    "file_write_watch": true,
+    "complete": true,
+    "valid": false,
+    "violations": [
+      {
+        "reason": "limit_file_event",
+        "file": "memory.swap.max",
+        "mask": 2
+      },
+      {
+        "reason": "limit_file_event",
+        "file": "memory.max",
+        "mask": 2
+      },
+      {
+        "reason": "limit_mismatch",
+        "file": "memory.max",
+        "expected": "8589934592",
+        "observed": "536870912"
+      },
+      {
+        "reason": "limit_mismatch",
+        "file": "memory.max",
+        "expected": "8589934592",
+        "observed": "536870912"
+      }
+    ],
+    "last_observed": {
+      "memory.max": "536870912",
+      "memory.swap.max": "0"
+    }
+  },
+  "outcome": "invalid_limits",
+  "docker_exit_code": 1,
+  "expected": "verified",
+  "limits_valid": false,
+  "passed": false,
+  "image_id": "sha256:d77490945afe1a8c202c67dc08fe10ff961e5b5b25b4ef5bf2b56305e2089a49"
+}

@@ -8,9 +8,8 @@ The structured MiMC-style Merkle sanity check and native arkworks Groth16
 baseline are auxiliary external-validity experiments.  They should not be
 used as the main RW-RW memory evidence.
 
-Non-canonical or superseded CSV/log files are kept under
-`archive/20260528_noncanonical/`.  Large materialized `*_data/` directories
-are intentionally left in place because regenerating them can take hours.
+Archived data and large materialized input directories are excluded from
+this distribution. Generate fresh inputs using the root README workflow.
 
 ## Bounded-Memory Result
 
@@ -57,28 +56,28 @@ Observed values from the current artifact:
 
 ```text
 RW-RW 8GB:
-  wall time: 2679 s = 44.7 min
+  wall time: 2720 s = 45.3 min
   proof: valid, 128 bytes
-  max RSS: 30460 KB = 29.7 MB
+  max RSS: 29828 KiB = 29.1 MiB
   I/O: read 223.4 GiB, write 209.2 GiB, 2861 stream openings
 
 Std 8GB:
   exit: 137
   stderr: Command terminated by signal 9
-  wall time: 37 s
-  max RSS: 8331776 KB = 7.95 GiB
+  wall time: 21 s (GNU time: 21.61 s)
+  max RSS: 8354600 KiB = 7.97 GiB
 
 Std 12GB:
   exit: 137
   stderr: Command terminated by signal 9
-  wall time: 199 s = 3.3 min
-  max RSS: 12534656 KB = 11.95 GiB
+  wall time: 32 s (GNU time: 32.35 s)
+  max RSS: 12534912 KiB = 11.95 GiB
 
 Std 16GB:
   exit: 0
-  wall time: 965 s = 16.1 min
+  wall time: 655 s = 10.9 min
   proof: valid, 128 bytes
-  max RSS: 13963160 KB = 13.3 GiB
+  max RSS: 13962508 KiB = 13.3 GiB
 ```
 
 ## Quick Verification
@@ -94,6 +93,13 @@ log files are present and contain the success/failure outcomes used in the
 paper.
 
 ## Reproducing the Cgroup Runs
+
+The commands below are the historical experiment workflow and write into
+`Experiments/cap_logs/`. For AE reproduction, use the isolated Docker
+workflow in the artifact root `README.md` (`AE/run.py`) to preserve these
+records. Historical exit-137 logs do not contain direct cgroup OOM-event
+measurements and should not be described as independently confirmed OOM.
+
 
 The scripts assume Docker/Colima or another Docker-compatible Linux backend.
 The cgroup limit must be enforced by Docker, not by macOS `ulimit`.
@@ -162,7 +168,7 @@ cap_logs/std_12gb_23.exit
 cap_logs/std_12gb_23.wall_s
 ```
 
-Do not use the Linux 29.7 MB RW-RW RSS value to replace the macOS five-run
+Do not use the Linux 29.1 MiB RW-RW RSS value to replace the macOS five-run
 clean prove-only scaling point (`rw_prove_only_23_repeats.csv`).  The bounded
 memory experiment is a separate cgroup success/failure result.
 

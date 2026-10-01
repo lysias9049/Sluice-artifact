@@ -1,0 +1,10 @@
+{
+  "memory.max": "4294967296\n",
+  "memory.swap.max": "0\n",
+  "memory.current": "161415168\n",
+  "memory.peak": "213807104\n",
+  "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+  "memory.stat": "anon 7188480\nfile 148783104\nkernel 5099520\nkernel_stack 16384\npagetables 69632\nsec_pagetables 0\npercpu 26352\nsock 0\nvmalloc 8192\nshmem 0\nzswap 0\nzswapped 0\nfile_mapped 0\nfile_dirty 0\nfile_writeback 0\nswapcached 0\nanon_thp 0\nfile_thp 0\nshmem_thp 0\ninactive_anon 0\nactive_anon 7188480\ninactive_file 27455488\nactive_file 121311232\nunevictable 0\nslab_reclaimable 3877768\nslab_unreclaimable 372336\nslab 4250104\nworkingset_refault_anon 0\nworkingset_refault_file 0\nworkingset_activate_anon 0\nworkingset_activate_file 0\nworkingset_restore_anon 0\nworkingset_restore_file 0\nworkingset_nodereclaim 0\npgdemote_kswapd 0\npgdemote_direct 0\npgdemote_khugepaged 0\npgscan 0\npgsteal 0\npgscan_kswapd 0\npgscan_direct 0\npgscan_khugepaged 0\npgsteal_kswapd 0\npgsteal_direct 0\npgsteal_khugepaged 0\npgfault 40332\npgmajfault 926\npgrefill 0\npgactivate 0\npgdeactivate 0\npglazyfree 0\npglazyfreed 0\nswpin_zero 0\nswpout_zero 0\nzswpin 0\nzswpout 0\nzswpwb 0\nthp_fault_alloc 137\nthp_collapse_alloc 0\nthp_swpout 0\nthp_swpout_fallback 0\n",
+  "io.stat": "254:0 rbytes=124133376 wbytes=24637440 rios=1733 wios=44 dbytes=0 dios=0\n",
+  "cpu.stat": "usage_usec 82281638\nuser_usec 81709652\nsystem_usec 571986\nnice_usec 0\nnr_periods 211\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n"
+}

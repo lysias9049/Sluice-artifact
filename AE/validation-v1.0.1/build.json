@@ -1,0 +1,9 @@
+{
+  "source_sha256": "6bdabba06814c9b8a15527b5a383252c4f77e3488f2da7d3cc5e3ea4a289e977",
+  "image_id": "sha256:d77490945afe1a8c202c67dc08fe10ff961e5b5b25b4ef5bf2b56305e2089a49",
+  "image": "sluice-ae:1.0.1-validation",
+  "architecture": "arm64",
+  "build_method": "offline-derived-validation; canonical base image lookup timed out",
+  "validation_dockerfile_sha256": "f6a2b4c62579bcd6ebe93d71ec58d70d116f9246dabc5a1211d8e527100fd330",
+  "verified_rust_source_files": 32
+}

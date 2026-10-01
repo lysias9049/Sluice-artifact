@@ -1,0 +1,84 @@
+{
+  "release": "1.0.1-local-candidate",
+  "date": "2026-10-01",
+  "architecture": "Linux ARM64 on Docker Desktop",
+  "source_sha256": "6bdabba06814c9b8a15527b5a383252c4f77e3488f2da7d3cc5e3ea4a289e977",
+  "build_method": "Offline derived image from previously validated v1.0.0 image; all 32 Rust/Cargo source files compared byte-for-byte to current source",
+  "canonical_build": "Base-image metadata lookup timed out at Docker Hub; complete standard Dockerfile build is not verified",
+  "rust_tests": {
+    "passed": 42,
+    "failed": 0,
+    "ignored": 2
+  },
+  "harness_regression_tests": {
+    "passed": 14,
+    "failed": 0,
+    "skipped": 0,
+    "command": "docker run --rm --network none --memory 256m --memory-swap 256m --user HOST_UID:HOST_GID sluice-ae:1.0.1-validation python3 AE/test_harness.py"
+  },
+  "cases": [
+    {
+      "name": "materialize-rw-n10-1g-b7b220c5",
+      "outcome": "completed",
+      "passed": true,
+      "limits_valid": true
+    },
+    {
+      "name": "materialize-std-n10-1g-ebf4d282",
+      "outcome": "completed",
+      "passed": true,
+      "limits_valid": true
+    },
+    {
+      "name": "materialize-std-n16-22g-95c9e023",
+      "outcome": "completed",
+      "passed": true,
+      "limits_valid": true
+    },
+    {
+      "name": "prove-rw-n10-256m-118dd310",
+      "outcome": "verified",
+      "passed": true,
+      "limits_valid": true
+    },
+    {
+      "name": "prove-rw-n10-8g-309aee99",
+      "outcome": "invalid_limits",
+      "passed": false,
+      "limits_valid": false
+    },
+    {
+      "name": "prove-rw-n10-8g-a54c6a62",
+      "outcome": "invalid_limits",
+      "passed": false,
+      "limits_valid": false
+    },
+    {
+      "name": "prove-std-n10-256m-90144f83",
+      "outcome": "verified",
+      "passed": true,
+      "limits_valid": true
+    },
+    {
+      "name": "prove-std-n16-64m-57495eac",
+      "outcome": "oom",
+      "passed": true,
+      "limits_valid": true
+    },
+    {
+      "name": "test-rw-n10-4g-439b849f",
+      "outcome": "completed",
+      "passed": true,
+      "limits_valid": true
+    }
+  ],
+  "scope": [
+    "Fresh small-input smoke proofs for both drivers at N=2^10; both verified and 128 bytes",
+    "Live swap and memory-setting changes rejected with passed=false",
+    "Real small-input standard OOM at N=2^16 with 64 MiB cap and valid monitoring; harness regression only, not paper evidence"
+  ],
+  "not_rerun": [
+    "Full N=2^23 workflow with the updated harness",
+    "Native x86_64 rootful Docker and systemctl daemon-reload"
+  ]
+}

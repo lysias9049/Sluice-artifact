@@ -1,0 +1,139 @@
+
+running 25 tests
+test msm::tests::test_streaming_msm_zero_scalars ... ok
+test ntt::tests::test_coset_roundtrip ... ok
+test msm::tests::test_streaming_msm_single ... ok
+test ntt::tests::test_bit_reverse_n8 ... ok
+test ntt::tests::test_rw_intt_roundtrip ... ok
+test file_vec::tests::test_file_vec_temp_cleanup ... ok
+test file_vec::tests::test_file_vec_reader_writer ... ok
+test prover::tests::test_h_polynomial_identity ... ok
+test r1cs::tests::test_matvec_random ... ok
+test r1cs::tests::test_matvec_small ... ok
+test ntt::tests::test_rw_ntt_correctness ... ok
+test file_vec::tests::test_file_vec_roundtrip ... ok
+test streaming_ntt::tests::test_streaming_coset_roundtrip ... ok
+test r1cs::tests::test_file_matvec_matches_vec ... ok
+test streaming_ntt::tests::test_streaming_coset_ntt_matches_vec ... ok
+test streaming_ntt::tests::test_streaming_coset_intt_roundtrip ... ok
+test standard_prover::tests::test_standard_prove_verifies ... ok
+test streaming_ntt::tests::test_streaming_ntt_matches_ark ... ok
+test streaming_ntt::tests::test_streaming_ntt_matches_vec_ntt ... ok
+test streaming_prover::tests::test_streaming_prove_disk_matches_ram ... ok
+test streaming_prover::tests::test_streaming_prove_disk_single_mul ... ok
+test streaming_ntt::tests::test_streaming_intt_roundtrip ... ok
+test streaming_prover::tests::test_streaming_prove_rw_single_mul ... ok
+test streaming_prover::tests::test_streaming_prove_single_mul ... ok
+test msm::tests::test_streaming_msm_correctness ... ok
+
+test result: ok. 25 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.59s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 2 tests
+test test_mul_circuit_valid_proof ... ok
+test test_mul_circuit_wrong_statement_fails ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.96s
+
+
+running 6 tests
+test test_n256 ... ignored, large N — run locally with: cargo test -- --ignored
+test test_n2 ... ok
+test test_n4 ... ok
+test test_n8 ... ok
+test test_n16 ... ok
+test test_n64 ... ok
+
+test result: ok. 5 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 8.77s
+
+
+running 11 tests
+test test_streaming_prove_n256 ... ignored, large N — run locally with: cargo test -- --ignored
+test test_streaming_ntt_n2 ... ok
+test test_streaming_ntt_n4 ... ok
+test test_streaming_ntt_n8 ... ok
+test test_streaming_ntt_n16 ... ok
+test test_streaming_ntt_n64 ... ok
+test test_streaming_prove_n2 ... ok
+test test_streaming_prove_n4 ... ok
+test test_streaming_prove_n8 ... ok
+test test_streaming_prove_n16 ... ok
+test test_streaming_prove_n64 ... ok
+
+test result: ok. 10 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 9.45s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

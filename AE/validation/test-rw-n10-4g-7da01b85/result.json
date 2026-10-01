@@ -1,0 +1,23 @@
+{
+  "name": "test-rw-n10-4g-7da01b85",
+  "mode": "test",
+  "variant": "rw",
+  "log_n": 10,
+  "exit_code": 0,
+  "wall_seconds": 21.986,
+  "oom_kill_delta": 0,
+  "memory_max": "4294967296",
+  "swap_max": "0",
+  "source_revision": "sha256:ff6af56a3254526dd62899c1f71de22371f5cc6fdba08a1a01bfb8209e894ba3",
+  "command": [
+    "cargo",
+    "test",
+    "--locked",
+    "--offline",
+    "--release"
+  ],
+  "outcome": "completed",
+  "expected": "completed",
+  "passed": true,
+  "image_id": "sha256:9470b6e2d5fd156c43fa2214459c15c0e4e7bdc416415992a21a21103eb5bee8"
+}

@@ -1,0 +1,29 @@
+{
+  "name": "prove-rw-n23-8g-0d4e52a2",
+  "mode": "prove",
+  "variant": "rw",
+  "log_n": 23,
+  "exit_code": 0,
+  "wall_seconds": 2787.984,
+  "oom_kill_delta": 0,
+  "memory_max": "8589934592",
+  "swap_max": "0",
+  "source_revision": "sha256:ff6af56a3254526dd62899c1f71de22371f5cc6fdba08a1a01bfb8209e894ba3",
+  "command": [
+    "target/release/rw_prove_only",
+    "--prove",
+    "23",
+    "/workspace/data/rw-23",
+    "0"
+  ],
+  "outcome": "verified",
+  "proof_valid": true,
+  "proof_bytes": 128,
+  "prove_ms": 2787999.8,
+  "peak_rss_mib": 28.5,
+  "read_bytes": 239847080192,
+  "write_bytes": 224613367776,
+  "expected": "verified",
+  "passed": true,
+  "image_id": "sha256:4aa03fcd280af9b3e2b3b898c58c013a12747876e792c3d518b6d087cef80cc5"
+}

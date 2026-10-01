@@ -1,0 +1,4 @@
+FROM sluice-ae:release-check
+RUN chmod -R a+rwX target /usr/local/cargo
+COPY AE ./AE
+ENV PYTHONDONTWRITEBYTECODE=1

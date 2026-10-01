@@ -1,0 +1,29 @@
+{
+  "name": "prove-std-n10-256m-3d2b81b8",
+  "mode": "prove",
+  "variant": "std",
+  "log_n": 10,
+  "exit_code": 0,
+  "wall_seconds": 4.348,
+  "oom_kill_delta": 0,
+  "memory_max": "268435456",
+  "swap_max": "0",
+  "source_revision": "sha256:ff6af56a3254526dd62899c1f71de22371f5cc6fdba08a1a01bfb8209e894ba3",
+  "command": [
+    "target/release/std_prove_only",
+    "--prove",
+    "10",
+    "/workspace/data/std-10",
+    "0"
+  ],
+  "outcome": "verified",
+  "proof_valid": true,
+  "proof_bytes": 128,
+  "prove_ms": 4336.4,
+  "peak_rss_mib": 21.8,
+  "read_bytes": 0,
+  "write_bytes": 0,
+  "expected": "verified",
+  "passed": true,
+  "image_id": "sha256:9470b6e2d5fd156c43fa2214459c15c0e4e7bdc416415992a21a21103eb5bee8"
+}

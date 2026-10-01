@@ -1,0 +1,4 @@
+materialize standard: QAP/PK/witness for N=2^16 (65536)
+materialize standard: setup 58.5s
+materialize standard: witness 0.0s
+materialize standard: wrote /workspace/data/std-16

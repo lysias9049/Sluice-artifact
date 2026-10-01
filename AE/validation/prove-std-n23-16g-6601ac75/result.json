@@ -1,0 +1,29 @@
+{
+  "name": "prove-std-n23-16g-6601ac75",
+  "mode": "prove",
+  "variant": "std",
+  "log_n": 23,
+  "exit_code": 0,
+  "wall_seconds": 539.91,
+  "oom_kill_delta": 0,
+  "memory_max": "17179869184",
+  "swap_max": "0",
+  "source_revision": "sha256:ff6af56a3254526dd62899c1f71de22371f5cc6fdba08a1a01bfb8209e894ba3",
+  "command": [
+    "target/release/std_prove_only",
+    "--prove",
+    "23",
+    "/workspace/data/std-23",
+    "0"
+  ],
+  "outcome": "verified",
+  "proof_valid": true,
+  "proof_bytes": 128,
+  "prove_ms": 514289.5,
+  "peak_rss_mib": 13635.3,
+  "read_bytes": 0,
+  "write_bytes": 0,
+  "expected": "verified",
+  "passed": true,
+  "image_id": "sha256:4aa03fcd280af9b3e2b3b898c58c013a12747876e792c3d518b6d087cef80cc5"
+}

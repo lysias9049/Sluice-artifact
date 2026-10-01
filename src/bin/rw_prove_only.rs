@@ -99,7 +99,8 @@ fn command_output(cmd: &str, args: &[&str]) -> Option<String> {
 }
 
 fn run_meta() -> RunMeta {
-    let git_commit = command_output("git", &["rev-parse", "--short", "HEAD"])
+    let git_commit = std::env::var("RWG_SOURCE_REVISION").ok()
+        .or_else(|| command_output("git", &["rev-parse", "--short", "HEAD"]))
         .unwrap_or_else(|| "unknown".to_owned());
     let machine_id = if std::env::var("RWG_RECORD_MACHINE_ID").ok().as_deref() == Some("1") {
         std::env::var("HOSTNAME")
@@ -296,12 +297,15 @@ fn materialize(log_n: u32, dir: &Path) -> io::Result<()> {
     Ok(())
 }
 
-fn proof_size(proof: &Proof<Bn254>) -> usize {
+fn proof_size(proof: &Proof<Bn254>) -> io::Result<usize> {
     let mut buf = Vec::new();
     proof.a.serialize_compressed(&mut buf).unwrap();
     proof.b.serialize_compressed(&mut buf).unwrap();
     proof.c.serialize_compressed(&mut buf).unwrap();
-    buf.len()
+    if let Ok(output) = std::env::var("RWG_PROOF_OUT") {
+        fs::write(output, &buf)?;
+    }
+    Ok(buf.len())
 }
 
 fn prove_only(log_n: u32, dir: &Path, limit_mb: u64) -> io::Result<String> {
@@ -388,7 +392,7 @@ fn prove_only(log_n: u32, dir: &Path, limit_mb: u64) -> io::Result<String> {
     let rss1 = peak_rss_mb();
     let io = io_counters();
     let (valid, t_verify) = measure(|| verify::<Bn254>(&vk, &stmt, &proof));
-    let pbytes = proof_size(&proof);
+    let pbytes = proof_size(&proof)?;
     let run_meta = run_meta();
 
     Ok(format!(
@@ -442,6 +446,24 @@ fn driver(log_n: u32, dir: &Path, csv_path: &Path) -> io::Result<()> {
 
 fn main() -> io::Result<()> {
     let args: Vec<String> = std::env::args().skip(1).collect();
+    if args.first().map(String::as_str) == Some("--materialize-only") {
+        if args.len() != 3 {
+            return Err(io::Error::new(io::ErrorKind::InvalidInput,
+                "usage: --materialize-only LOG_N DATA_DIR"));
+        }
+        let log_n: u32 = args[1].parse().map_err(|_|
+            io::Error::new(io::ErrorKind::InvalidInput, "invalid LOG_N"))?;
+        if !(1..=25).contains(&log_n) {
+            return Err(io::Error::new(io::ErrorKind::InvalidInput,
+                "LOG_N must be between 1 and 25"));
+        }
+        let dir = PathBuf::from(&args[2]);
+        if dir.exists() && fs::read_dir(&dir)?.next().is_some() {
+            return Err(io::Error::new(io::ErrorKind::AlreadyExists,
+                "DATA_DIR must be empty; refusing to overwrite prepared inputs"));
+        }
+        return materialize(log_n, &dir);
+    }
     if args.first().map(|s| s.as_str()) == Some("--prove") {
         let log_n: u32 = args.get(1).and_then(|s| s.parse().ok()).unwrap_or(23);
         let dir = PathBuf::from(

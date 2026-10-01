@@ -1,0 +1,23 @@
+{
+  "name": "materialize-rw-n23-22g-1996d5a3",
+  "mode": "materialize",
+  "variant": "rw",
+  "log_n": 23,
+  "exit_code": 0,
+  "wall_seconds": 7464.672,
+  "oom_kill_delta": 0,
+  "memory_max": "23622320128",
+  "swap_max": "0",
+  "source_revision": "sha256:ff6af56a3254526dd62899c1f71de22371f5cc6fdba08a1a01bfb8209e894ba3",
+  "command": [
+    "target/release/rw_prove_only",
+    "--materialize-only",
+    "23",
+    "/workspace/data/rw-23"
+  ],
+  "outcome": "completed",
+  "data_bytes": 10401875346,
+  "expected": "completed",
+  "passed": true,
+  "image_id": "sha256:4aa03fcd280af9b3e2b3b898c58c013a12747876e792c3d518b6d087cef80cc5"
+}

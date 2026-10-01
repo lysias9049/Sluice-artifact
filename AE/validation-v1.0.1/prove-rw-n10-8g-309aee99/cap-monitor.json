@@ -1,0 +1,27 @@
+{
+  "expected_memory_bytes": 8589934592,
+  "expected_swap_max": "0",
+  "poll_interval_seconds": 0.1,
+  "max_allowed_gap_seconds": 1.0,
+  "samples": 3,
+  "max_sample_gap_seconds": 0.1019690830000286,
+  "file_write_watch": true,
+  "complete": true,
+  "valid": false,
+  "violations": [
+    {
+      "reason": "limit_file_event",
+      "file": "memory.swap.max",
+      "mask": 2
+    },
+    {
+      "reason": "limit_file_event",
+      "file": "memory.max",
+      "mask": 2
+    }
+  ],
+  "last_observed": {
+    "memory.max": "8589934592",
+    "memory.swap.max": "0"
+  }
+}

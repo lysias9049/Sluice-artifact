@@ -1,0 +1,29 @@
+{
+  "name": "prove-rw-n10-256m-0d87f4de",
+  "mode": "prove",
+  "variant": "rw",
+  "log_n": 10,
+  "exit_code": 0,
+  "wall_seconds": 4.69,
+  "oom_kill_delta": 0,
+  "memory_max": "268435456",
+  "swap_max": "0",
+  "source_revision": "sha256:ff6af56a3254526dd62899c1f71de22371f5cc6fdba08a1a01bfb8209e894ba3",
+  "command": [
+    "target/release/rw_prove_only",
+    "--prove",
+    "10",
+    "/workspace/data/rw-10",
+    "0"
+  ],
+  "outcome": "verified",
+  "proof_valid": true,
+  "proof_bytes": 128,
+  "prove_ms": 4682.1,
+  "peak_rss_mib": 20.7,
+  "read_bytes": 14385408,
+  "write_bytes": 12525536,
+  "expected": "verified",
+  "passed": true,
+  "image_id": "sha256:9470b6e2d5fd156c43fa2214459c15c0e4e7bdc416415992a21a21103eb5bee8"
+}

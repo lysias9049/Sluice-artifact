@@ -2,6 +2,9 @@
 /target/
 /target-linux/
 /.cargo-linux/
+/.ae-work/
+__pycache__/
+*.pyc
 
 # OS/editor noise
 .DS_Store
@@ -22,4 +25,3 @@
 
 # Local launcher/debug logs
 /Experiments/overnight_launcher.log
-

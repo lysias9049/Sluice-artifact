@@ -1,0 +1,1 @@
+rw_rw_prove_only,23,8388608,2787999.8,2.647,28.5,26.8,128,true,239847080192,224613367776,2861,/workspace/data/rw-23/crs,/workspace/data/rw-23/qap,/workspace/data/rw-23/assignment.bin,sha256:ff6af56a3254526dd62899c1f71de22371f5cc6fdba08a1a01bfb8209e894ba3,artifact-host,1789472545

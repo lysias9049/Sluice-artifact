@@ -1,0 +1,9 @@
+{
+  "Architecture": "aarch64",
+  "NCPU": 10,
+  "MemTotal": 25425485824,
+  "CgroupVersion": "2",
+  "ServerVersion": "29.5.2",
+  "KernelVersion": "6.12.76-linuxkit",
+  "free_disk_bytes": 573269913600
+}

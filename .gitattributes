@@ -1,0 +1,4 @@
+*.bin binary
+# Preserve measurement output byte-for-byte, including its trailing newlines.
+AE/validation/** -whitespace
+AE/validation-v1.0.1/** -whitespace

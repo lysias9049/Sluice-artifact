@@ -1,0 +1,5 @@
+materialize: setup/QAP/witness for N=2^23 (8388608)
+materialize: streaming_setup 7447.7s
+materialize: make_streaming_qap 1.3s
+materialize: assignment FileVec 2.2s
+materialize: wrote /workspace/data/rw-23
