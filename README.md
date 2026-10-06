@@ -31,6 +31,28 @@ Docker must provide Linux containers with cgroup v2. The Dockerfile installs
 Rust 1.96.0, Python, and GNU time. The initial build needs network access;
 measurement containers run with networking disabled.
 
+The runner uses `docker build` with common `-f` and `-t` options and lets
+Docker select its configured builder. It does not pass BuildKit-specific
+progress flags. A working legacy builder can therefore be used without the
+Buildx plugin; modern Docker installations normally use BuildKit/Buildx.
+If Docker reports that its selected BuildKit backend needs a missing Buildx
+plugin, install it following Docker's instructions for your platform, such as
+the [Ubuntu installation instructions](https://docs.docker.com/engine/install/ubuntu/).
+On installations that still support the legacy backend, it can be selected
+explicitly with `DOCKER_BUILDKIT=0 python3 AE/run.py build`. Docker has
+deprecated the Linux legacy builder, so this setting is only an option when
+that backend is available; see the
+[Docker builder documentation](https://docs.docker.com/reference/cli/docker/image/build/).
+Build output is retained in `.ae-work/build-*.log` with either builder.
+
+The commands below assume `docker info` succeeds for the invoking account.
+An authorized Docker-group user on native Linux runs them without `sudo`.
+The measurement containers use that host account's UID/GID. If Docker access
+requires invoking the harness with `sudo`, use the same account for all steps
+and a separate work directory, since that invocation creates root-owned files.
+For older root-owned work directories, choose a fresh `--work` directory rather
+than mixing root and non-root runs.
+
 ```bash
 python3 AE/run.py build
 python3 AE/run.py test
@@ -57,6 +79,40 @@ The current runner checks for at least 23 GiB of Docker RAM and 100 GiB of
 free disk before large-input preparation; allocate at least 24 GiB to Docker for this workflow. These are
 provisioning settings, not measured minimum requirements. See
 `AE/REQUIREMENTS.md` for complete hardware and software requirements.
+
+### Optional `install.sh` build helper
+
+`install.sh` is a Bash wrapper for `python3 AE/run.py build`. It locates the
+runner and forwards all arguments, including `--work` and `--image`. Its build
+creates the Docker image and writes the build/environment records; run `test`,
+`smoke`, and `full` separately using the same work directory and image.
+Docker and host Python 3.9+ must already be available. Rust and the remaining
+runtime dependencies are installed inside the Docker image.
+
+From the extracted artifact root, the packaged helper is `AE/install.sh`:
+
+```bash
+bash AE/install.sh
+bash AE/install.sh --work .ae-work-v1.0.2 --image sluice-ae:1.0.2
+python3 AE/run.py test --work .ae-work-v1.0.2 --image sluice-ae:1.0.2
+```
+
+The standalone `install.sh` uploaded alongside the Zenodo ZIP has the same
+contents. Extract the ZIP next to it so the layout is `install.sh` and
+`rwg-artifact-sp2027/AE/run.py`, then run:
+
+```bash
+unzip sluice-sp2027-artifact-v1.0.2.zip
+bash install.sh
+cd rwg-artifact-sp2027
+python3 AE/run.py test
+```
+
+The default image is `sluice-ae:1.0.2`; the default work directory is
+`rwg-artifact-sp2027/.ae-work`, independent of the helper's invocation directory.
+Use `bash AE/install.sh --help` (or `bash install.sh --help` for the standalone
+copy) to display the runner's options. Bash is required for the helper;
+the direct Python commands remain available.
 
 ### Prepare inputs and rerun individual cases
 
@@ -160,19 +216,33 @@ is for reproduction, not production trusted-setup or key management.
 
 ## AE rehearsal results and release
 
-Working release: 1.0.1; see `CHANGELOG.md`. The published AE-evaluated v1.0.0
-is preserved at DOI `10.5281/zenodo.22763230`. The v1.0.1 DOI will be added
-after publication; that existing DOI identifies v1.0.0, not these updates.
+Working release: 1.0.2, prepared on 2026-10-06; see `CHANGELOG.md`.
+The published AE-evaluated v1.0.0 is preserved at DOI
+`10.5281/zenodo.22763230`. The v1.0.1 packaging update is published at DOI
+`10.5281/zenodo.23073215`. These DOIs identify the previous releases.
 
-Local candidate validation is in `AE/validation-v1.0.1/`: 42 Rust tests
+Historical v1.0.1 candidate validation is in `AE/validation-v1.0.1/`: 42 Rust tests
 passed (two ignored), 14 Linux harness checks passed, and both fresh N=2^10
 smoke proofs verified with 128 bytes. Live changes to swap and memory settings
 were rejected, while a small N=2^16 standard OOM under 64 MiB was accepted
 with valid monitoring. The latter is a harness check, not new paper evidence.
 Validation used an offline image derived from the previously validated image;
 all Rust/Cargo sources were compared byte-for-byte. The standard Dockerfile
-build's base-image lookup timed out. The full N=2^23 workflow and native
-x86_64/systemd scenario have not been rerun with this candidate.
+build's first base-image lookup timed out. A subsequent standard Dockerfile
+build using existing cache, 42 Rust tests, 14 harness checks, and both smoke
+proofs passed; this post-packaging check is recorded in the published v1.0.1
+record's `VALIDATION.json`. The full N=2^23 workflow and native x86_64/systemd
+scenario were not rerun for v1.0.1.
+
+The v1.0.2 validation scope and records are retained separately in
+`AE/validation-v1.0.2/`. On Linux ARM64 Docker Desktop, both BuildKit and
+the real legacy backend completed the standard Dockerfile build, 42 Rust
+tests (two ignored), and both verified 128-byte N=2^10 smoke proofs. All 16
+Linux harness checks passed. The packaged and standalone Bash helpers also
+completed their build checks with explicit work/image arguments.
+Legacy-style CLI regression checks test acceptance
+of the runner's build arguments and propagation of build failures. They do
+not replace an end-to-end build on a native Ubuntu legacy Docker daemon.
 
 The historical v1.0.0 full N=2^23 rehearsal completed successfully on Linux ARM64:
 

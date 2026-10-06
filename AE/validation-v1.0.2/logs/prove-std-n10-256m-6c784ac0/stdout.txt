@@ -1,0 +1,1 @@
+std_prove_only,10,1024,4424.1,1.808,21.8,18.7,128,true,0,0,0,/workspace/data/std-10/small.bin,/workspace/data/std-10/qap_u.bin,/workspace/data/std-10/witness.bin,sha256:79ee680ce06e975dd03e3d69e65d113de2cd079ffeb74f53ef63a9205a233574,artifact-host,1791263060

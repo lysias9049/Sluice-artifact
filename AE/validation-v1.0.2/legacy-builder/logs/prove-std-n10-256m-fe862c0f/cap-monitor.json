@@ -1,0 +1,16 @@
+{
+  "expected_memory_bytes": 268435456,
+  "expected_swap_max": "0",
+  "poll_interval_seconds": 0.1,
+  "max_allowed_gap_seconds": 1.0,
+  "samples": 46,
+  "max_sample_gap_seconds": 0.1048110420000512,
+  "file_write_watch": true,
+  "complete": true,
+  "valid": true,
+  "violations": [],
+  "last_observed": {
+    "memory.max": "268435456",
+    "memory.swap.max": "0"
+  }
+}

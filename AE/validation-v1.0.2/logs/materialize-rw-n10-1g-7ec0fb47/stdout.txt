@@ -1,0 +1,5 @@
+materialize: setup/QAP/witness for N=2^10 (1024)
+materialize: streaming_setup 1.2s
+materialize: make_streaming_qap 0.0s
+materialize: assignment FileVec 0.0s
+materialize: wrote /workspace/data/rw-10

@@ -1,0 +1,4 @@
+materialize standard: QAP/PK/witness for N=2^10 (1024)
+materialize standard: setup 1.0s
+materialize standard: witness 0.0s
+materialize standard: wrote /workspace/data/std-10

@@ -1,0 +1,266 @@
+DEPRECATED: The legacy builder is deprecated and will be removed in a future release.
+            BuildKit is currently disabled; enable it by removing the DOCKER_BUILDKIT=0
+            environment-variable.
+
+Sending build context to Docker daemon  875.5kB
+Step 1/12 : FROM rust:1.96.0-bookworm
+1.96.0-bookworm: Pulling from library/rust
+Digest: sha256:5e2214abe154fe26e39f64488952e5c991eeed1d6d6da7cc8381ae83927f0cfc
+Status: Downloaded newer image for rust:1.96.0-bookworm
+ ---> 5e2214abe154
+Step 2/12 : RUN apt-get update && apt-get install -y --no-install-recommends python3 time ca-certificates && rm -rf /var/lib/apt/lists/*
+ ---> Running in 4c0c291e22a0
+Get:1 http://deb.debian.org/debian bookworm InRelease [151 kB]
+Get:2 http://deb.debian.org/debian bookworm-updates InRelease [55.4 kB]
+Get:3 http://deb.debian.org/debian-security bookworm-security InRelease [34.8 kB]
+Get:4 http://deb.debian.org/debian bookworm/main arm64 Packages [8689 kB]
+Get:5 http://deb.debian.org/debian bookworm-updates/main arm64 Packages [6936 B]
+Get:6 http://deb.debian.org/debian-security bookworm-security/main arm64 Packages [347 kB]
+Fetched 9284 kB in 6s (1683 kB/s)
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+python3 is already the newest version (3.11.2-1+b1).
+python3 set to manually installed.
+The following NEW packages will be installed:
+  time
+The following packages will be upgraded:
+  ca-certificates
+1 upgraded, 1 newly installed, 0 to remove and 63 not upgraded.
+Need to get 213 kB of archives.
+After this operation, 176 kB of additional disk space will be used.
+Get:1 http://deb.debian.org/debian-security bookworm-security/main arm64 ca-certificates all 20250419~deb12u1 [162 kB]
+Get:2 http://deb.debian.org/debian bookworm/main arm64 time arm64 1.9-0.2 [50.6 kB]
+[91mdebconf: delaying package configuration, since apt-utils is not installed
+[0mFetched 213 kB in 0s (1686 kB/s)
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 23279 files and directories currently installed.)
+Preparing to unpack .../ca-certificates_20250419~deb12u1_all.deb ...
+Unpacking ca-certificates (20250419~deb12u1) over (20230311+deb12u1) ...
+Selecting previously unselected package time.
+Preparing to unpack .../time_1.9-0.2_arm64.deb ...
+Unpacking time (1.9-0.2) ...
+Setting up time (1.9-0.2) ...
+Setting up ca-certificates (20250419~deb12u1) ...
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+debconf: unable to initialize frontend: Readline
+debconf: (This frontend requires a controlling tty.)
+debconf: falling back to frontend: Teletype
+Updating certificates in /etc/ssl/certs...
+rehash: warning: skipping ca-certificates.crt,it does not contain exactly one certificate or CRL
+21 added, 13 removed; done.
+Processing triggers for ca-certificates (20250419~deb12u1) ...
+Updating certificates in /etc/ssl/certs...
+0 added, 0 removed; done.
+Running hooks in /etc/ca-certificates/update.d...
+done.
+ ---> Removed intermediate container 4c0c291e22a0
+ ---> 1d4e3d0411a1
+Step 3/12 : WORKDIR /opt/sluice
+ ---> Running in aa2a163306d9
+ ---> Removed intermediate container aa2a163306d9
+ ---> d4b652e4f331
+Step 4/12 : COPY Cargo.toml Cargo.lock ./
+ ---> 0d3c34d6a72d
+Step 5/12 : COPY src ./src
+ ---> a7d5d0eaa95e
+Step 6/12 : COPY tests ./tests
+ ---> 90ade9c484e4
+Step 7/12 : RUN cargo build --locked --release && cargo test --locked --release --no-run
+ ---> Running in e403c408e893
+[91m    Updating crates.io index
+[0m[91m Downloading crates ...
+[0m[91m  Downloaded aead v0.5.2
+[0m[91m  Downloaded ark-ff-macros v0.5.0
+[0m[91m  Downloaded ark-crypto-primitives-macros v0.5.0
+[0m[91m  Downloaded ahash v0.8.12
+[0m[91m  Downloaded ark-bn254 v0.5.0
+[0m[91m  Downloaded merlin v3.0.0
+[0m[91m  Downloaded enum-ordinalize v4.3.2
+[0m[91m  Downloaded universal-hash v0.5.1
+[0m[91m  Downloaded ark-snark v0.5.1
+[0m[91m  Downloaded opaque-debug v0.3.1
+[0m[91m  Downloaded inout v0.1.4
+[0m[91m  Downloaded ark-ff-asm v0.5.0
+[0m[91m  Downloaded cpufeatures v0.2.17
+[0m[91m  Downloaded block-buffer v0.10.4
+[0m[91m  Downloaded version_check v0.9.5
+[0m[91m  Downloaded ark-serialize-derive v0.5.0
+[0m[91m  Downloaded crypto-common v0.1.7
+[0m[91m  Downloaded subtle v2.6.1
+[0m[91m  Downloaded ark-serialize v0.5.0
+[0m[91m  Downloaded cfg-if v1.0.4
+[0m[91m  Downloaded keccak v0.1.6
+[0m[91m  Downloaded generic-array v0.14.7
+[0m[91m  Downloaded enum-ordinalize-derive v4.3.2
+[0m[91m  Downloaded ark-groth16 v0.5.0
+[0m[91m  Downloaded ark-ff v0.5.0
+[0m[91m  Downloaded zeroize_derive v1.4.3
+[0m[91m  Downloaded rand_core v0.6.4
+[0m[91m  Downloaded rand_chacha v0.3.1
+[0m[91m  Downloaded quote v1.0.45
+[0m[91m  Downloaded pin-project-lite v0.2.17
+[0m[91m  Downloaded paste v1.0.15
+[0m[91m  Downloaded digest v0.10.7
+[0m[91m  Downloaded cipher v0.4.4
+[0m[91m  Downloaded num-integer v0.1.46
+[0m[91m  Downloaded ppv-lite86 v0.2.21
+[0m[91m  Downloaded zeroize v1.8.2
+[0m[91m  Downloaded either v1.15.0
+[0m[91m  Downloaded getrandom v0.2.17
+[0m[91m  Downloaded blake2 v0.10.6
+[0m[91m  Downloaded crossbeam-epoch v0.9.18
+[0m[91m  Downloaded educe v0.6.0
+[0m[91m  Downloaded crossbeam-utils v0.8.21
+[0m[91m  Downloaded byteorder v1.5.0
+[0m[91m  Downloaded arrayvec v0.7.6
+[0m[91m  Downloaded ark-relations v0.5.1
+[0m[91m  Downloaded ark-poly v0.5.0
+[0m[91m  Downloaded sha2 v0.10.9
+[0m[91m  Downloaded once_cell v1.21.4
+[0m[91m  Downloaded derivative v2.2.0
+[0m[91m  Downloaded autocfg v1.5.0
+[0m[91m  Downloaded poly1305 v0.8.0
+[0m[91m  Downloaded crossbeam-deque v0.8.6
+[0m[91m  Downloaded chacha20 v0.9.1
+[0m[91m  Downloaded ark-std v0.5.0
+[0m[91m  Downloaded proc-macro2 v1.0.106
+[0m[91m  Downloaded num-traits v0.2.19
+[0m[91m  Downloaded ark-ec v0.5.0
+[0m[91m  Downloaded rayon-core v1.12.1
+[0m[91m  Downloaded allocator-api2 v0.2.21
+[0m[91m  Downloaded unicode-ident v1.0.24
+[0m[91m  Downloaded tracing-core v0.1.36
+[0m[91m  Downloaded ark-crypto-primitives v0.5.0
+[0m[91m  Downloaded chacha20poly1305 v0.10.1
+[0m[91m  Downloaded rand v0.8.6
+[0m[91m  Downloaded typenum v1.20.0
+[0m[91m  Downloaded num-bigint v0.4.6
+[0m[91m  Downloaded itertools v0.13.0
+[0m[91m  Downloaded hashbrown v0.15.5
+[0m[91m  Downloaded rayon v1.10.0
+[0m[91m  Downloaded tracing-subscriber v0.2.25
+[0m[91m  Downloaded syn v1.0.109
+[0m[91m  Downloaded zerocopy v0.8.48
+[0m[91m  Downloaded syn v2.0.117
+[0m[91m  Downloaded tracing v0.1.44
+[0m[91m  Downloaded libc v0.2.186
+[0m[91m   Compiling libc v0.2.186
+   Compiling proc-macro2 v1.0.106
+[0m[91m   Compiling unicode-ident v1.0.24
+   Compiling version_check v0.9.5
+[0m[91m   Compiling quote v1.0.45
+[0m[91m   Compiling cfg-if v1.0.4
+[0m[91m   Compiling typenum v1.20.0
+[0m[91m   Compiling autocfg v1.5.0
+[0m[91m   Compiling zerocopy v0.8.48
+   Compiling crossbeam-utils v0.8.21
+[0m[91m   Compiling subtle v2.6.1
+[0m[91m   Compiling rayon-core v1.12.1
+[0m[91m   Compiling[0m[91m either v1.15.0
+[0m[91m   Compiling[0m[91m once_cell v1.21.4
+   Compiling[0m[91m paste v1.0.15
+[0m[91m   Compiling[0m[91m generic-array v0.14.7
+[0m[91m   Compiling num-traits v0.2.19
+[0m[91m   Compiling arrayvec v0.7.6
+[0m[91m   Compiling itertools v0.13.0
+[0m[91m   Compiling ahash v0.8.12
+[0m[91m   Compiling crossbeam-epoch v0.9.18
+[0m[91m   Compiling crossbeam-deque v0.8.6
+[0m[91m   Compiling tracing-core v0.1.36
+[0m[91m   Compiling syn v2.0.117
+[0m[91m   Compiling[0m[91m allocator-api2 v0.2.21
+[0m[91m   Compiling getrandom v0.2.17
+[0m[91m   Compiling[0m[91m block-buffer v0.10.4
+[0m[91m   Compiling[0m[91m num-integer v0.1.46
+[0m[91m   Compiling[0m[91m rand_core v0.6.4
+[0m[91m   Compiling[0m[91m cpufeatures v0.2.17
+[0m[91m   Compiling num-bigint v0.4.6
+[0m[91m   Compiling[0m[91m hashbrown v0.15.5
+[0m[91m   Compiling[0m[91m crypto-common v0.1.7
+[0m[91m   Compiling syn v1.0.109
+[0m[91m   Compiling digest v0.10.7
+[0m[91m   Compiling[0m[91m rayon v1.10.0
+[0m[91m   Compiling pin-project-lite v0.2.17
+[0m[91m   Compiling[0m[91m tracing v0.1.44
+[0m[91m   Compiling[0m[91m tracing-subscriber v0.2.25
+[0m[91m   Compiling[0m[91m keccak v0.1.6
+[0m[91m   Compiling[0m[91m inout v0.1.4
+[0m[91m   Compiling[0m[91m byteorder v1.5.0
+[0m[91m   Compiling[0m[91m blake2 v0.10.6
+[0m[91m   Compiling[0m[91m sha2 v0.10.9
+[0m[91m   Compiling[0m[91m universal-hash v0.5.1
+[0m[91m   Compiling opaque-debug v0.3.1
+[0m[91m   Compiling[0m[91m poly1305 v0.8.0
+[0m[91m   Compiling aead v0.5.2
+[0m[91m   Compiling ppv-lite86 v0.2.21
+[0m[91m   Compiling derivative v2.2.0
+[0m[91m   Compiling rand_chacha v0.3.1
+[0m[91m   Compiling rand v0.8.6
+[0m[91m   Compiling zeroize_derive v1.4.3
+[0m[91m   Compiling enum-ordinalize-derive v4.3.2
+[0m[91m   Compiling ark-serialize-derive v0.5.0
+   Compiling ark-ff-asm v0.5.0
+[0m[91m   Compiling ark-ff-macros v0.5.0
+[0m[91m   Compiling ark-crypto-primitives-macros v0.5.0
+[0m[91m   Compiling ark-std v0.5.0
+[0m[91m   Compiling ark-serialize v0.5.0
+[0m[91m   Compiling enum-ordinalize v4.3.2
+[0m[91m   Compiling zeroize v1.8.2
+[0m[91m   Compiling educe v0.6.0
+[0m[91m   Compiling cipher v0.4.4
+   Compiling merlin v3.0.0
+[0m[91m   Compiling chacha20 v0.9.1
+[0m[91m   Compiling chacha20poly1305 v0.10.1
+[0m[91m   Compiling ark-ff v0.5.0
+[0m[91m   Compiling ark-poly v0.5.0
+   Compiling ark-relations v0.5.1
+[0m[91m   Compiling ark-snark v0.5.1
+[0m[91m   Compiling ark-ec v0.5.0
+[0m[91m   Compiling ark-crypto-primitives v0.5.0
+   Compiling ark-bn254 v0.5.0
+[0m[91m   Compiling ark-groth16 v0.5.0
+[0m[91m   Compiling rw-groth16 v0.1.0 (/opt/sluice)
+[0m[91m    Finished `release` profile [optimized] target(s) in 29.02s
+[0m[91m   Compiling rw-groth16 v0.1.0 (/opt/sluice)
+[0m[91m    Finished `release` profile [optimized] target(s) in 4.37s
+[0m[91m  Executable unittests src/lib.rs (target/release/deps/rw_groth16-93dee1b6de34d0f7)
+  Executable unittests src/bin/benchmark.rs (target/release/deps/benchmark-fa8ca395309ea1f3)
+  Executable unittests src/bin/compare_bench.rs (target/release/deps/compare_bench-0756bb683cf8e6d0)
+  Executable unittests src/bin/filevec_crypto_microbench.rs (target/release/deps/filevec_crypto_microbench-54445a63052b834a)
+  Executable unittests src/bin/mem_bench.rs (target/release/deps/mem_bench-650e44aba5e7451c)
+  Executable unittests src/bin/msm_tradeoff.rs (target/release/deps/msm_tradeoff-a360c8ff222e724f)
+  Executable unittests src/bin/ntt_bench.rs (target/release/deps/ntt_bench-a28cb6b36118379a)
+  Executable unittests src/bin/oom_boundary.rs (target/release/deps/oom_boundary-1d9bb6188b24668c)
+  Executable unittests src/bin/production_baseline_bench.rs (target/release/deps/production_baseline_bench-ebd896f80afe1d74)
+  Executable unittests src/bin/r1cs_bench.rs (target/release/deps/r1cs_bench-6fdf7ccc68ff3db7)
+  Executable unittests src/bin/ram_scaling.rs (target/release/deps/ram_scaling-0c7b6bf4138323fc)
+  Executable unittests src/bin/real_workload_bench.rs (target/release/deps/real_workload_bench-0cea16a1414b1ca2)
+  Executable unittests src/bin/rw_prove_only.rs (target/release/deps/rw_prove_only-f90c0945fcc69f73)
+  Executable unittests src/bin/std_prove_only.rs (target/release/deps/std_prove_only-4b041f4f32dab220)
+  Executable unittests src/bin/streaming_bench.rs (target/release/deps/streaming_bench-c604a2c79f99d534)
+  Executable tests/e2e.rs (target/release/deps/e2e-3db6e85e27219a60)
+[0m[91m  Executable tests/small_n.rs (target/release/deps/small_n-71de60613f11d990)
+  Executable tests/streaming_e2e.rs (target/release/deps/streaming_e2e-35d195023662476b)
+[0m ---> Removed intermediate container e403c408e893
+ ---> 5e7977c059cd
+Step 8/12 : RUN chmod -R a+rwX target /usr/local/cargo
+ ---> Running in 1112f54da28a
+ ---> Removed intermediate container 1112f54da28a
+ ---> 96d4da2be7aa
+Step 9/12 : COPY AE ./AE
+ ---> bd43f477dd31
+Step 10/12 : COPY LICENSE ./LICENSE
+ ---> 8ba23de308b3
+Step 11/12 : ENV PYTHONUNBUFFERED=1
+ ---> Running in 2c422dd0c6bc
+ ---> Removed intermediate container 2c422dd0c6bc
+ ---> 7346103d8b36
+Step 12/12 : CMD ["python3", "AE/worker.py", "--help"]
+ ---> Running in 4de5352b0549
+ ---> Removed intermediate container 4de5352b0549
+ ---> 855d3ed47e31
+Successfully built 855d3ed47e31
+Successfully tagged sluice-ae:1.0.2-legacy

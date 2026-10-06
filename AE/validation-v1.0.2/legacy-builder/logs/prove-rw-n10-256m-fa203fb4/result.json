@@ -1,0 +1,47 @@
+{
+  "name": "prove-rw-n10-256m-fa203fb4",
+  "mode": "prove",
+  "variant": "rw",
+  "log_n": 10,
+  "exit_code": 0,
+  "wall_seconds": 4.798,
+  "oom_kill_delta": 0,
+  "memory_max": "268435456",
+  "swap_max": "0",
+  "source_revision": "sha256:79ee680ce06e975dd03e3d69e65d113de2cd079ffeb74f53ef63a9205a233574",
+  "command": [
+    "target/release/rw_prove_only",
+    "--prove",
+    "10",
+    "/workspace/data/rw-10",
+    "0"
+  ],
+  "cap_monitor": {
+    "expected_memory_bytes": 268435456,
+    "expected_swap_max": "0",
+    "poll_interval_seconds": 0.1,
+    "max_allowed_gap_seconds": 1.0,
+    "samples": 49,
+    "max_sample_gap_seconds": 0.1057670839999787,
+    "file_write_watch": true,
+    "complete": true,
+    "valid": true,
+    "violations": [],
+    "last_observed": {
+      "memory.max": "268435456",
+      "memory.swap.max": "0"
+    }
+  },
+  "outcome": "verified",
+  "proof_valid": true,
+  "proof_bytes": 128,
+  "prove_ms": 4778.4,
+  "peak_rss_mib": 20.6,
+  "read_bytes": 14385408,
+  "write_bytes": 12525536,
+  "docker_exit_code": 0,
+  "expected": "verified",
+  "limits_valid": true,
+  "passed": true,
+  "image_id": "sha256:855d3ed47e3189aced9a2c3ac6e542a344e0aae4a8f158e72f0175b03887fafa"
+}

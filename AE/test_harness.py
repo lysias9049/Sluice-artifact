@@ -3,6 +3,7 @@
 Run: python3 AE/test_harness.py (file-watch tests require Linux).
 """
 import json
+import os
 from pathlib import Path
 import subprocess
 import sys
@@ -114,6 +115,64 @@ class CleanupTests(unittest.TestCase):
                 self.assertIn('--user', execute.call_args_list[0].args[0])
                 self.assertEqual(execute.call_args_list[-1].args[0][:3],
                                  ['docker', 'rm', '--force'])
+
+
+class BuildTests(unittest.TestCase):
+    """Exercise the build runner against a legacy-style CLI, without a daemon."""
+
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temp.cleanup)
+        self.root = Path(self.temp.name)
+        self.work = self.root / 'work with spaces'
+        self.work.mkdir()
+        cli = self.root / 'docker'
+        cli.write_text('''#!/usr/bin/env python3
+import json
+import os
+import sys
+
+args = sys.argv[1:]
+if args and args[0] == 'build':
+    # Only the common legacy build options are accepted by this fixture.
+    position = 1
+    while position < len(args) - 1:
+        option = args[position]
+        if option not in ('-f', '--file', '-t', '--tag'):
+            print('unknown flag: ' + option, file=sys.stderr)
+            sys.exit(125)
+        position += 2
+    if position != len(args) - 1 or not os.path.isdir(args[-1]):
+        sys.exit(125)
+    if os.environ.get('SLUICE_TEST_BUILD_FAIL') == '1':
+        print('Dockerfile build failed', file=sys.stderr)
+        sys.exit(1)
+    print('Successfully built legacy-test-image')
+elif args[:2] == ['image', 'inspect']:
+    print(json.dumps([{'Id': 'sha256:legacy-test-image', 'Architecture': 'amd64'}]))
+else:
+    sys.exit(125)
+''')
+        cli.chmod(0o755)
+        self.environment = patch.dict(os.environ, {
+            'PATH': str(self.root) + os.pathsep + os.environ.get('PATH', ''),
+            'SLUICE_TEST_BUILD_FAIL': '0',
+        })
+        self.environment.start()
+        self.addCleanup(self.environment.stop)
+        self.args = SimpleNamespace(work=self.work, image='sluice-ae:legacy-test')
+
+    def test_legacy_cli_build_creates_usable_record(self):
+        run.build(self.args)
+        record = json.loads((self.work / 'build.json').read_text())
+        self.assertEqual(record['image_id'], 'sha256:legacy-test-image')
+        self.assertEqual(record['source_sha256'], run.source_hash())
+
+    def test_failed_build_does_not_create_success_record(self):
+        with patch.dict(os.environ, {'SLUICE_TEST_BUILD_FAIL': '1'}):
+            with self.assertRaises(subprocess.CalledProcessError):
+                run.build(self.args)
+        self.assertFalse((self.work / 'build.json').exists())
 
 
 if __name__ == '__main__':

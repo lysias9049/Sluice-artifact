@@ -1,0 +1,9 @@
+Building sluice-ae:legacy-test; log: /tmp/tmp0r83ihtp/work with spaces/build-20261006-050412.log
+.Building sluice-ae:legacy-test; log: /tmp/tmp5ut9hcyr/work with spaces/build-20261006-050412.log
+{"source_sha256": "79ee680ce06e975dd03e3d69e65d113de2cd079ffeb74f53ef63a9205a233574", "image_id": "sha256:legacy-test-image", "image": "sluice-ae:legacy-test", "architecture": "amd64"}
+.START test-rw-n10-1g-95c06bd5; expected=completed
+..............
+----------------------------------------------------------------------
+Ran 16 tests in 0.085s
+
+OK

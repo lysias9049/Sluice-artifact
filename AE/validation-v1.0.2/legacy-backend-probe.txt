@@ -1,0 +1,13 @@
+DEPRECATED: The legacy builder is deprecated and will be removed in a future release.
+            BuildKit is currently disabled; enable it by removing the DOCKER_BUILDKIT=0
+            environment-variable.
+
+Sending build context to Docker daemon  2.048kB
+Step 1/2 : FROM sluice-ae:1.0.1
+ ---> 3064e780fb1e
+Step 2/2 : CMD ["true"]
+ ---> Running in d66bce3c7dc2
+ ---> Removed intermediate container d66bce3c7dc2
+ ---> 28765e420f0b
+Successfully built 28765e420f0b
+Successfully tagged sluice-ae:legacy-probe

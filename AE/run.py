@@ -48,7 +48,9 @@ def build(args):
     fingerprint = source_hash()
     print(f'Building {args.image}; log: {log}', flush=True)
     with log.open('w') as stream:
-        subprocess.run(['docker', 'build', '--progress=plain', '-f', str(ROOT / 'AE/Dockerfile'),
+        # Use options shared by BuildKit and the legacy Docker builder.
+        # BuildKit-only progress options break stock Docker legacy installations.
+        subprocess.run(['docker', 'build', '-f', str(ROOT / 'AE/Dockerfile'),
                         '-t', args.image, str(ROOT)], stdout=stream, stderr=subprocess.STDOUT,
                        check=True)
     if source_hash() != fingerprint:
@@ -135,7 +137,7 @@ def main():
     ap.add_argument('command', choices=['doctor', 'build', 'test', 'smoke', 'prepare',
                                        'prove', 'full', 'results', 'verify-records'])
     ap.add_argument('--work', type=Path, default=ROOT / '.ae-work')
-    ap.add_argument('--image', default='sluice-ae:1.0.1')
+    ap.add_argument('--image', default='sluice-ae:1.0.2')
     ap.add_argument('--cpus', type=int, default=8)
     ap.add_argument('--log-n', type=int, default=23, choices=range(1, 26))
     ap.add_argument('--variant', choices=['rw', 'std'], default='rw')

@@ -1,0 +1,19 @@
+{
+  "State": {
+    "Status": "exited",
+    "Running": false,
+    "Paused": false,
+    "Restarting": false,
+    "OOMKilled": false,
+    "Dead": false,
+    "Pid": 0,
+    "ExitCode": 0,
+    "Error": "",
+    "StartedAt": "2026-10-06T05:04:08.865628378Z",
+    "FinishedAt": "2026-10-06T05:04:14.267388964Z"
+  },
+  "Image": "sha256:cd8ac3a0487c05165838646ca27e991030afb0ea7d7b4f114207ebba84892942",
+  "Memory": 268435456,
+  "MemorySwap": 268435456,
+  "NanoCpus": 8000000000
+}

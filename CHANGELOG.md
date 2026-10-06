@@ -1,6 +1,30 @@
 # Release changes
 
-## 1.0.1 — local candidate, 2026-10-01
+## 1.0.2 — local update, 2026-10-06
+
+Review #8B identified two additional packaging issues:
+
+- Remove the hard-coded BuildKit-only `--progress=plain` option from the
+  Docker build command. Use the configured Docker builder with common flags
+  and retain its output in the build log. Document BuildKit/Buildx and the
+  legacy backend where it remains available.
+- Explain the optional Bash `install.sh` helper, its packaged and standalone
+  locations, argument forwarding, and the separate test/smoke/full steps.
+- Clarify Docker-group and sudo invocation accounts, and update prior-version
+  publication links and validation history.
+- Add two CLI compatibility regressions: a legacy-style build creates a
+  usable build record, and a failed build never creates a success record.
+
+Validation and its limits are recorded in `AE/validation-v1.0.2/`.
+Both real BuildKit and legacy-backend builds passed on Linux ARM64 Docker
+Desktop, followed by 42 Rust tests (two ignored) and both verified 128-byte
+N=2^10 smoke proofs on each image. All 16 Linux harness tests passed, and
+both packaged and standalone helper build invocations passed.
+The Rust prover, circuits, proof format, and historical experiment records
+are unchanged. No full N=2^23 or native Ubuntu x86_64 rerun was performed.
+This package was prepared for a new Zenodo version on 2026-10-06.
+
+## 1.0.1 — published, 2026-10-01
 
 AE feedback on v1.0.0 motivated these changes:
 
@@ -21,15 +45,18 @@ The Rust prover, circuits, proof format, and historical measurements are
 unchanged. `AE/validation/` contains v1.0.0 evidence; its fingerprints do not
 describe this updated harness. New validation must be recorded separately.
 
-Local validation is retained in `AE/validation-v1.0.1/`. The existing Rust
+Initial validation is retained in `AE/validation-v1.0.1/`. The existing Rust
 suite passed 42 tests with two ignored; all 14 Linux harness regression checks
 passed. Both fresh N=2^10 smoke proofs verified and serialized to 128 bytes.
 Live swap/memory changes were rejected, and a real N=2^16 standard OOM under
 64 MiB was accepted with valid monitoring. This small OOM is a harness check.
 Validation used an offline image derived from the prior validated image with
-32 Rust/Cargo files checked for byte identity. The standard Dockerfile build
-was blocked by a Docker Hub base-image metadata timeout. Full N=2^23 and native
-x86_64/systemd tests remain unverified for this candidate.
+32 Rust/Cargo files checked for byte identity. The first standard Dockerfile
+build was blocked by a Docker Hub base-image metadata timeout. A later
+standard Dockerfile build using existing cache, 42 Rust tests, 14 harness
+checks, and both smoke proofs passed; the published `VALIDATION.json`
+contains that post-packaging record. Full N=2^23 and native x86_64/systemd
+tests were not rerun for this version.
 
-This candidate has not been published on Zenodo or assigned a new Zenodo DOI. The
-v1.0.0 DOI remains `10.5281/zenodo.22763230`.
+Published v1.0.1 DOI: `10.5281/zenodo.23073215`.
+The v1.0.0 DOI remains `10.5281/zenodo.22763230`.

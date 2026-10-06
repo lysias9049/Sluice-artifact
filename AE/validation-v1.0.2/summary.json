@@ -1,0 +1,128 @@
+{
+  "release": "1.0.2-local-update",
+  "date": "2026-10-06",
+  "architecture": "Linux ARM64 on Docker Desktop",
+  "source_sha256": "79ee680ce06e975dd03e3d69e65d113de2cd079ffeb74f53ef63a9205a233574",
+  "build_method": "Standard AE/Dockerfile through the packaged Bash install.sh helper; BuildKit with existing build cache",
+  "rust_tests": {
+    "passed": 42,
+    "failed": 0,
+    "ignored": 2
+  },
+  "harness_regression_tests": {
+    "passed": 16,
+    "failed": 0,
+    "skipped": 0
+  },
+  "compatibility_regression": "The previous published v1.0.1 command fails against a legacy-style CLI fixture with exit 125; v1.0.2 succeeds and records the image. Genuine build failures propagate without a success record.",
+  "rust_cargo_files_unchanged": 32,
+  "cases": [
+    {
+      "name": "materialize-rw-n10-1g-7ec0fb47",
+      "outcome": "completed",
+      "passed": true,
+      "limits_valid": true,
+      "proof_bytes": null
+    },
+    {
+      "name": "materialize-std-n10-1g-0c159ea3",
+      "outcome": "completed",
+      "passed": true,
+      "limits_valid": true,
+      "proof_bytes": null
+    },
+    {
+      "name": "prove-rw-n10-256m-53dea31e",
+      "outcome": "verified",
+      "passed": true,
+      "limits_valid": true,
+      "proof_bytes": 128
+    },
+    {
+      "name": "prove-std-n10-256m-6c784ac0",
+      "outcome": "verified",
+      "passed": true,
+      "limits_valid": true,
+      "proof_bytes": 128
+    },
+    {
+      "name": "test-rw-n10-4g-84c433b6",
+      "outcome": "completed",
+      "passed": true,
+      "limits_valid": true,
+      "proof_bytes": null
+    }
+  ],
+  "not_rerun": [
+    "Full N=2^23 workflow with the updated harness",
+    "Native Ubuntu x86_64 rootful Docker legacy builder",
+    "Native x86_64 systemctl daemon-reload"
+  ],
+  "standalone_helper": {
+    "layout": "Standalone install.sh beside extracted rwg-artifact-sp2027/",
+    "passed": true,
+    "argument_forwarding": [
+      "--work",
+      "--image"
+    ],
+    "build_record": {
+      "source_sha256": "79ee680ce06e975dd03e3d69e65d113de2cd079ffeb74f53ef63a9205a233574",
+      "image_id": "sha256:f61325a6859f566e3cee63b039e337cd59bb742c5c1fa908c82706d3af6e7f1d",
+      "image": "sluice-ae:1.0.2-standalone",
+      "architecture": "arm64"
+    }
+  },
+  "legacy_builder": {
+    "method": "Standard AE/Dockerfile with DOCKER_BUILDKIT=0 on Linux ARM64 Docker Desktop; complete build and runtime checks",
+    "passed": true,
+    "build_record": {
+      "source_sha256": "79ee680ce06e975dd03e3d69e65d113de2cd079ffeb74f53ef63a9205a233574",
+      "image_id": "sha256:855d3ed47e3189aced9a2c3ac6e542a344e0aae4a8f158e72f0175b03887fafa",
+      "image": "sluice-ae:1.0.2-legacy",
+      "architecture": "arm64"
+    },
+    "rust_tests": {
+      "passed": 42,
+      "failed": 0,
+      "ignored": 2
+    },
+    "cases": [
+      {
+        "name": "materialize-rw-n10-1g-8386a375",
+        "outcome": "completed",
+        "passed": true,
+        "limits_valid": true,
+        "proof_bytes": null
+      },
+      {
+        "name": "materialize-std-n10-1g-31cd081e",
+        "outcome": "completed",
+        "passed": true,
+        "limits_valid": true,
+        "proof_bytes": null
+      },
+      {
+        "name": "prove-rw-n10-256m-fa203fb4",
+        "outcome": "verified",
+        "passed": true,
+        "limits_valid": true,
+        "proof_bytes": 128
+      },
+      {
+        "name": "prove-std-n10-256m-fe862c0f",
+        "outcome": "verified",
+        "passed": true,
+        "limits_valid": true,
+        "proof_bytes": 128
+      },
+      {
+        "name": "test-rw-n10-4g-6ca77f21",
+        "outcome": "completed",
+        "passed": true,
+        "limits_valid": true,
+        "proof_bytes": null
+      }
+    ]
+  },
+  "helper_syntax_and_help": "Bash syntax and packaged-helper --help passed"
+}

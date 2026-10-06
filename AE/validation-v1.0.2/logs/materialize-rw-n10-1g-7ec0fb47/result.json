@@ -1,0 +1,41 @@
+{
+  "name": "materialize-rw-n10-1g-7ec0fb47",
+  "mode": "materialize",
+  "variant": "rw",
+  "log_n": 10,
+  "exit_code": 0,
+  "wall_seconds": 1.276,
+  "oom_kill_delta": 0,
+  "memory_max": "1073741824",
+  "swap_max": "0",
+  "source_revision": "sha256:79ee680ce06e975dd03e3d69e65d113de2cd079ffeb74f53ef63a9205a233574",
+  "command": [
+    "target/release/rw_prove_only",
+    "--materialize-only",
+    "10",
+    "/workspace/data/rw-10"
+  ],
+  "cap_monitor": {
+    "expected_memory_bytes": 1073741824,
+    "expected_swap_max": "0",
+    "poll_interval_seconds": 0.1,
+    "max_allowed_gap_seconds": 1.0,
+    "samples": 14,
+    "max_sample_gap_seconds": 0.12119520899999259,
+    "file_write_watch": true,
+    "complete": true,
+    "valid": true,
+    "violations": [],
+    "last_observed": {
+      "memory.max": "1073741824",
+      "memory.swap.max": "0"
+    }
+  },
+  "outcome": "completed",
+  "data_bytes": 1271144,
+  "docker_exit_code": 0,
+  "expected": "completed",
+  "limits_valid": true,
+  "passed": true,
+  "image_id": "sha256:cd8ac3a0487c05165838646ca27e991030afb0ea7d7b4f114207ebba84892942"
+}

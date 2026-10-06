@@ -1,0 +1,6 @@
+{
+  "source_sha256": "79ee680ce06e975dd03e3d69e65d113de2cd079ffeb74f53ef63a9205a233574",
+  "image_id": "sha256:f61325a6859f566e3cee63b039e337cd59bb742c5c1fa908c82706d3af6e7f1d",
+  "image": "sluice-ae:1.0.2-standalone",
+  "architecture": "arm64"
+}
