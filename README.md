@@ -216,7 +216,9 @@ is for reproduction, not production trusted-setup or key management.
 
 ## AE rehearsal results and release
 
-Working release: 1.0.2, prepared on 2026-10-06; see `CHANGELOG.md`.
+Published release: [1.0.2](https://zenodo.org/records/23179739),
+2026-10-06; DOI: [10.5281/zenodo.23179739](https://doi.org/10.5281/zenodo.23179739).
+See `CHANGELOG.md` for the packaging changes and validation scope.
 The published AE-evaluated v1.0.0 is preserved at DOI
 `10.5281/zenodo.22763230`. The v1.0.1 packaging update is published at DOI
 `10.5281/zenodo.23073215`. These DOIs identify the previous releases.

@@ -1,6 +1,6 @@
 # Release changes
 
-## 1.0.2 — local update, 2026-10-06
+## 1.0.2 — published, 2026-10-06
 
 Review #8B identified two additional packaging issues:
 
@@ -22,7 +22,10 @@ N=2^10 smoke proofs on each image. All 16 Linux harness tests passed, and
 both packaged and standalone helper build invocations passed.
 The Rust prover, circuits, proof format, and historical experiment records
 are unchanged. No full N=2^23 or native Ubuntu x86_64 rerun was performed.
-This package was prepared for a new Zenodo version on 2026-10-06.
+Published v1.0.2 DOI:
+[10.5281/zenodo.23179739](https://doi.org/10.5281/zenodo.23179739).
+The immutable Zenodo archive retains the documentation prepared before
+publication; the repository documentation now includes this publication link.
 
 ## 1.0.1 — published, 2026-10-01
 
