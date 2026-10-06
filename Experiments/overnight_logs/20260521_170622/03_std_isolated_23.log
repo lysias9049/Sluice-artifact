@@ -1,0 +1,6 @@
+=== bench_isolated.sh: MODE=std, N=2^23 ~ 2^23 ===
+출력: Experiments/std_isolated_23_23.csv
+
+N=2^23 (8388608)  ... prove=610.5s  peak_rss=13688MB  delta=3418.1MB  io=0.00/0.00GiB  passes=0  ✓
+
+완료: Experiments/std_isolated_23_23.csv
